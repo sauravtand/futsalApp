@@ -1,8 +1,8 @@
 import { View, Text,StyleSheet,Image,TouchableOpacity } from 'react-native'
-import React from 'react'
+import React,{ useState, useEffect } from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs'
-
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
 
 
 
@@ -11,12 +11,33 @@ import HomeScreen from './Screens/HomeScreen'
 import BookScreen from './Screens/BookScreen'
 import PlayScreen from './Screens/PlayScreen'
 import ProfileScreen from './Screens/ProfileScreen' 
+import SplashScreen from './Screens/SplashScreen'
 
 
+
+
+
+//for bottom tab navigation
 const Tab=createBottomTabNavigator();
+const Stack=createNativeStackNavigator();
 export default function MainContainer() {
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    // Simulate loading time for SplashScreen
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 2000); // Adjust the timeout as needed
+  }, []);
+
+  if (isLoading) {
+    return <SplashScreen />;
+  }
   return(
+    
     <NavigationContainer> 
+     
+       
       <Tab.Navigator
       screenOptions={{
         tabBarShowLabel:false,
@@ -25,7 +46,8 @@ export default function MainContainer() {
           backgroundColor:'#FEFEFE',
           bottom:1,
           height:65,
-        }
+        },
+        headerShown:false,
       }}
       >
       <Tab.Screen name="Home" component={HomeScreen} options={{
