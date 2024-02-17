@@ -1,4 +1,4 @@
-import { View, Text,StyleSheet,Image,TouchableOpacity } from 'react-native'
+import { View, Text,StyleSheet,Image,TouchableOpacity,Dimensions } from 'react-native'
 import React,{ useState, useEffect } from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs'
@@ -16,7 +16,7 @@ import SplashScreen from './Screens/SplashScreen'
 
 
 
-
+const { width, height } = Dimensions.get('window');
 //for bottom tab navigation
 const Tab=createBottomTabNavigator();
 const Stack=createNativeStackNavigator();
@@ -27,11 +27,11 @@ export default function MainContainer() {
     // Simulate loading time for SplashScreen
     setTimeout(() => {
       setIsLoading(false);
-    }, 2000); // Adjust the timeout as needed
+    }, 5000); // Adjust the timeout as needed
   }, []);
 
   if (isLoading) {
-    return <SplashScreen />;
+    return <SplashScreenWithImage />;
   }
   return(
     
@@ -120,3 +120,39 @@ export default function MainContainer() {
   );
 }
   
+
+
+//splash screen
+
+function SplashScreenWithImage() {
+  return (
+    <View style={styles.container}>
+      <Image
+        source={require('../assets/pictures/screen.png')} // Adjust the path to your splash image
+        style={styles.image}
+       resizeMode='cover'
+      />
+      
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'white', // Set your desired background color
+  },
+  image: {
+    width: width,
+    height: height,
+    position: 'absolute',
+    top: 0,
+    left: 0,
+  },
+  text: {
+    fontSize: 24,
+    fontWeight: 'bold',
+  },
+});
