@@ -5,6 +5,7 @@ import {
   Image,
   TouchableOpacity,
   Dimensions,
+  SafeAreaView,
 } from 'react-native';
 import React, {useState, useEffect} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
@@ -16,7 +17,7 @@ import HomeScreen from './Screens/HomeScreen';
 import BookScreen from './Screens/BookScreen';
 import PlayScreen from './Screens/PlayScreen';
 import ProfileScreen from './Screens/ProfileScreen';
-import SplashScreen from './Screens/SplashScreen';
+import LoginScreen from './Screens/LoginScreen';
 
 const {width, height} = Dimensions.get('window');
 //for bottom tab navigation
@@ -29,14 +30,16 @@ export default function MainContainer() {
     // Simulate loading time for SplashScreen
     setTimeout(() => {
       setIsLoading(false);
-    }, 5000); // Adjust the timeout as needed
+    }, 4000); // Adjust the timeout as needed
   }, []);
 
   if (isLoading) {
     return <SplashScreenWithImage />;
   }
+  // return<LoginScreen/>;
   return (
     <NavigationContainer>
+     
       <Stack.Navigator
         screenOptions={{
           header: props => <CustomHeader {...props} />,
@@ -54,13 +57,18 @@ export default function MainContainer() {
 
 function SplashScreenWithImage() {
   return (
-    <View style={styles.container}>
-      <Image
-        source={require('../assets/pictures/screen.png')} // Adjust the path to your splash image
-        style={styles.image}
-        resizeMode="cover"
-      />
-    </View>
+    // <View style={styles.container}>
+    //   <Image
+    //     source={require('../assets/pictures/screen.png')} // Adjust the path to your splash image
+    //     style={styles.image}
+    //     resizeMode="cover"
+    //   />
+    // </View>
+    <SafeAreaView style={{flex:1, alignItems:'center',justifyContent:'center',backgroundColor:'grey'}}>
+    <Image source={require('../assets/pictures/logo.png')} style={{justifyContent:'center',left:5,right:5,top:-10,height:70,width:300}} />
+    <Image source={require('../assets/pictures/kickboy1.png')} style={{width:350,height:300,top:20,right:10,justifyContent:'center'}}/>
+    <Text style={{top:30,justifyContent:'center',color:'black'}}> Book Your Futsal Fun Now!</Text>
+  </SafeAreaView>
   );
 }
 
@@ -78,7 +86,7 @@ function CustomHeader({navigation}) {
           source={require('../assets/pictures/marker.png')} // marker icon image
           style={styles.marker}
         />
-        <Text style={{fontSize: 14, left: 2}}>Kupondole,Lalitpur..</Text>
+        <Text style={{fontSize: 12, left: 2,color:'black'}}>Kupondole,Lalitpur..</Text>
         <TouchableOpacity>
           <Image
             source={require('../assets/pictures/angledown.png')} // angle down icon image
@@ -275,6 +283,7 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     borderBottomWidth: 1,
     borderBottomColor: '#eee', // Customize your header bottom border color
+    backgroundColor:'#FEFEFE',
   },
   logo: {
     width: 72, // Adjust the width of your logo
@@ -288,7 +297,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     flexDirection: 'row',
     alignItems: 'center',
-    left: 40,
+    left: 30,
   },
   marker: {
     flexDirection: 'row',
