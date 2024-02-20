@@ -36,7 +36,7 @@ export default function MainContainer() {
   if (isLoading) {
     return <SplashScreenWithImage />;
   }
-  // return<LoginScreen/>;
+  return<LoginScreen/>;
   return (
     <NavigationContainer>
      
@@ -64,7 +64,7 @@ function SplashScreenWithImage() {
     //     resizeMode="cover"
     //   />
     // </View>
-    <SafeAreaView style={{flex:1, alignItems:'center',justifyContent:'center',backgroundColor:'grey'}}>
+    <SafeAreaView style={{flex:1, alignItems:'center',justifyContent:'center',backgroundColor:'#DDDEE4'}}>
     <Image source={require('../assets/pictures/logo.png')} style={{justifyContent:'center',left:5,right:5,top:-10,height:70,width:300}} />
     <Image source={require('../assets/pictures/kickboy1.png')} style={{width:350,height:300,top:20,right:10,justifyContent:'center'}}/>
     <Text style={{top:30,justifyContent:'center',color:'black'}}> Book Your Futsal Fun Now!</Text>
