@@ -1,30 +1,25 @@
-import {View, SafeAreaView, Text, Image, TouchableOpacity} from 'react-native';
-import React, {useState} from 'react';
+import {View, SafeAreaView, Text, Image, TouchableOpacity,ScrollView} from 'react-native';
+import React, {useState, useRef} from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {GestureHandlerRootView, TextInput} from 'react-native-gesture-handler';
-import {NavigationContainer} from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
-export default function LoginScreen(props) {
+
+export default function RegistrationScreen(props) {
   const [passwordVisible, setPasswordVisible] = useState(true);
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
   };
-  const {navigation} = props; // or: const { navigation } = props;
-
-  // ... login logic
-
-  const handleRegister = () => {
-    navigation.navigate('RegistrationScreen'); // Use navigation to navigate
+  const [cpasswordVisible, csetPasswordVisible] = useState(true);
+  const togglecPasswordVisibility = () => {
+    csetPasswordVisible(!cpasswordVisible);
   };
-  const handleLogin = () => {
-    navigation.navigate('MainTabs'); // Use navigation to navigate
-  };
-
+  const {navigation} = props;
+  
+  
   return (
     <SafeAreaView
       style={{flex: 1, justifyContent: 'center', backgroundColor: '#E6E6E6'}}>
-      <View style={{paddingHorizontal: 25}}>
+      <ScrollView showsVerticalScrollIndicator={false} style={{paddingHorizontal: 25}}>
         <View>
           <Image
             source={require('../Screens/images/kickers.png')}
@@ -40,8 +35,34 @@ export default function LoginScreen(props) {
             color: '#333',
             marginBottom: 30,
           }}>
-          Login
+          Register
         </Text>
+        
+        <View
+          style={{
+            flexDirection: 'row',
+            borderBottomColor: '#ccc',
+            borderBottomWidth: 1,
+            marginBottom: 25,
+          }}>
+          <Icon
+            name="user"
+            size={25}
+            style={{marginRight: 5, color: 'black'}}
+          />
+          <GestureHandlerRootView>
+            <TextInput
+              placeholder="Full Name"
+              placeholderTextColor={'black'}
+              style={{height: 35, top: -5, paddingVertical: 0}}
+              onFocus={() => setIsFocused(true)}
+            />
+          </GestureHandlerRootView>
+        </View>
+
+        
+
+
         <View
           style={{
             flexDirection: 'row',
@@ -63,6 +84,29 @@ export default function LoginScreen(props) {
             />
           </GestureHandlerRootView>
         </View>
+          
+        <View
+          style={{
+            flexDirection: 'row',
+            borderBottomColor: '#ccc',
+            borderBottomWidth: 1,
+            marginBottom: 25,
+          }}>
+          <Icon
+            name="phone"
+            size={25}
+            style={{marginRight: 5, color: 'black'}}
+          />
+          <GestureHandlerRootView>
+            <TextInput
+              placeholder="Phone Number"
+              placeholderTextColor={'black'}
+              style={{height: 35, top: -5, paddingVertical: 0}}
+              keyboardType="numeric"
+            />
+          </GestureHandlerRootView>
+        </View>
+        
 
         <View
           style={{
@@ -94,6 +138,36 @@ export default function LoginScreen(props) {
             />
           </TouchableOpacity>
         </View>
+        <View
+          style={{
+            flexDirection: 'row',
+            borderBottomColor: '#ccc',
+            borderBottomWidth: 1,
+            marginBottom: 25,
+          }}>
+          <Icon
+            name="lock"
+            size={25}
+            style={{marginRight: 5, color: 'black'}}
+          />
+          <GestureHandlerRootView>
+            <TextInput
+              placeholder="Confirm Password"
+              placeholderTextColor={'black'}
+              style={{height: 35, top: -5, paddingVertical: 0,width:150}}
+              secureTextEntry={cpasswordVisible}
+            />
+          </GestureHandlerRootView>
+          <TouchableOpacity
+            onPress={togglecPasswordVisibility}
+            style={{position: 'absolute', right: 10, alignSelf: 'center'}}>
+            <Icon
+              name={cpasswordVisible ? 'eye-slash' : 'eye'}
+              size={20}
+              color={'black'}
+            />
+          </TouchableOpacity>
+        </View>
 
         <TouchableOpacity
           style={{
@@ -103,10 +177,9 @@ export default function LoginScreen(props) {
             marginBottom: 30,
             height: 50,
             alignContent: 'center',
-          }}
-          onPress={handleLogin}>
+          }}>
           <Text style={{textAlign: 'center', fontWeight: '700', fontSize: 18}}>
-            Login
+            Register
           </Text>
         </TouchableOpacity>
 
@@ -174,12 +247,12 @@ export default function LoginScreen(props) {
             marginBottom: 80,
             top: 30,
           }}>
-          <Text style={{color: 'black'}}>New to the app?</Text>
-          <TouchableOpacity onPress={handleRegister}>
-            <Text style={{color: '#FF7F32'}}>Register</Text>
+          <Text style={{color: 'black'}}>Already registered?</Text>
+          <TouchableOpacity onPress={()=> navigation.goBack()}>
+            <Text style={{color: '#FF7F32'}}>Login</Text>
           </TouchableOpacity>
         </View>
-      </View>
+      </ScrollView>
     </SafeAreaView>
   );
 }

@@ -18,6 +18,7 @@ import BookScreen from './Screens/BookScreen';
 import PlayScreen from './Screens/PlayScreen';
 import ProfileScreen from './Screens/ProfileScreen';
 import LoginScreen from './Screens/LoginScreen';
+import RegistrationScreen from './Screens/RegistrationScreen';
 
 const {width, height} = Dimensions.get('window');
 //for bottom tab navigation
@@ -36,10 +37,9 @@ export default function MainContainer() {
   if (isLoading) {
     return <SplashScreenWithImage />;
   }
-  return<LoginScreen/>;
+
   return (
     <NavigationContainer>
-     
       <Stack.Navigator
         screenOptions={{
           header: props => <CustomHeader {...props} />,
@@ -47,6 +47,16 @@ export default function MainContainer() {
             backgroundColor: '#FEFEFE', // Customize your header background color
           },
         }}>
+        <Stack.Screen
+          name="LoginScreen"
+          component={LoginScreen}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="RegistrationScreen"
+          component={RegistrationScreen}
+          options={{headerShown: false}}
+        />
         <Stack.Screen name="MainTabs" component={MainTabs} />
       </Stack.Navigator>
     </NavigationContainer>
@@ -64,11 +74,39 @@ function SplashScreenWithImage() {
     //     resizeMode="cover"
     //   />
     // </View>
-    <SafeAreaView style={{flex:1, alignItems:'center',justifyContent:'center',backgroundColor:'#DDDEE4'}}>
-    <Image source={require('../assets/pictures/logo.png')} style={{justifyContent:'center',left:5,right:5,top:-10,height:70,width:300}} />
-    <Image source={require('../assets/pictures/kickboy1.png')} style={{width:350,height:300,top:20,right:10,justifyContent:'center'}}/>
-    <Text style={{top:30,justifyContent:'center',color:'black'}}> Book Your Futsal Fun Now!</Text>
-  </SafeAreaView>
+    <SafeAreaView
+      style={{
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: '#DDDEE4',
+      }}>
+      <Image
+        source={require('../assets/pictures/logo.png')}
+        style={{
+          justifyContent: 'center',
+          left: 5,
+          right: 5,
+          top: -10,
+          height: 70,
+          width: 300,
+        }}
+      />
+      <Image
+        source={require('../assets/pictures/kickboy1.png')}
+        style={{
+          width: 350,
+          height: 300,
+          top: 20,
+          right: 10,
+          justifyContent: 'center',
+        }}
+      />
+      <Text style={{top: 30, justifyContent: 'center', color: 'black'}}>
+        {' '}
+        Book Your Futsal Fun Now!
+      </Text>
+    </SafeAreaView>
   );
 }
 
@@ -86,7 +124,9 @@ function CustomHeader({navigation}) {
           source={require('../assets/pictures/marker.png')} // marker icon image
           style={styles.marker}
         />
-        <Text style={{fontSize: 12, left: 2,color:'black'}}>Kupondole,Lalitpur..</Text>
+        <Text style={{fontSize: 12, left: 2, color: 'black'}}>
+          Kupondole,Lalitpur..
+        </Text>
         <TouchableOpacity>
           <Image
             source={require('../assets/pictures/angledown.png')} // angle down icon image
@@ -283,7 +323,7 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     borderBottomWidth: 1,
     borderBottomColor: '#eee', // Customize your header bottom border color
-    backgroundColor:'#FEFEFE',
+    backgroundColor: '#FEFEFE',
   },
   logo: {
     width: 72, // Adjust the width of your logo
