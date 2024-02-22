@@ -58,7 +58,7 @@ export default function LoginScreen(props) {
             <TextInput
               placeholder="Email"
               placeholderTextColor={'black'}
-              style={{height: 35, top: -5, paddingVertical: 0}}
+              style={{height: 35, top: -5, paddingVertical: 0,color:'black'}}
               keyboardType="email-address"
             />
           </GestureHandlerRootView>
@@ -80,7 +80,7 @@ export default function LoginScreen(props) {
             <TextInput
               placeholder="Password"
               placeholderTextColor={'black'}
-              style={{height: 35, top: -5, paddingVertical: 0}}
+              style={{height: 35, top: -5, paddingVertical: 0,color:'black'}}
               secureTextEntry={passwordVisible}
             />
           </GestureHandlerRootView>

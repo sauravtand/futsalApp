@@ -2,6 +2,10 @@ import {View, SafeAreaView, Text, Image, TouchableOpacity,ScrollView} from 'reac
 import React, {useState, useRef} from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {GestureHandlerRootView, TextInput} from 'react-native-gesture-handler';
+//firebase config key
+import firebase from '@react-native-firebase/app'
+import '@react-native-firebase/auth'
+import '@react-native-firebase/firestore'
 
 
 export default function RegistrationScreen(props) {
@@ -26,6 +30,7 @@ export default function RegistrationScreen(props) {
             style={{width: 250, height: 250, alignSelf: 'center'}}
           />
         </View>
+        
 
         <Text
           style={{
@@ -37,166 +42,11 @@ export default function RegistrationScreen(props) {
           }}>
           Register
         </Text>
-        
-        <View
-          style={{
-            flexDirection: 'row',
-            borderBottomColor: '#ccc',
-            borderBottomWidth: 1,
-            marginBottom: 25,
-          }}>
-          <Icon
-            name="user"
-            size={25}
-            style={{marginRight: 5, color: 'black'}}
-          />
-          <GestureHandlerRootView>
-            <TextInput
-              placeholder="Full Name"
-              placeholderTextColor={'black'}
-              style={{height: 35, top: -5, paddingVertical: 0}}
-              onFocus={() => setIsFocused(true)}
-            />
-          </GestureHandlerRootView>
-        </View>
-
-        
-
-
-        <View
-          style={{
-            flexDirection: 'row',
-            borderBottomColor: '#ccc',
-            borderBottomWidth: 1,
-            marginBottom: 25,
-          }}>
-          <Icon
-            name="envelope"
-            size={20}
-            style={{marginRight: 5, color: 'black'}}
-          />
-          <GestureHandlerRootView>
-            <TextInput
-              placeholder="Email"
-              placeholderTextColor={'black'}
-              style={{height: 35, top: -5, paddingVertical: 0}}
-              keyboardType="email-address"
-            />
-          </GestureHandlerRootView>
-        </View>
-          
-        <View
-          style={{
-            flexDirection: 'row',
-            borderBottomColor: '#ccc',
-            borderBottomWidth: 1,
-            marginBottom: 25,
-          }}>
-          <Icon
-            name="phone"
-            size={25}
-            style={{marginRight: 5, color: 'black'}}
-          />
-          <GestureHandlerRootView>
-            <TextInput
-              placeholder="Phone Number"
-              placeholderTextColor={'black'}
-              style={{height: 35, top: -5, paddingVertical: 0}}
-              keyboardType="numeric"
-            />
-          </GestureHandlerRootView>
-        </View>
-        
-
-        <View
-          style={{
-            flexDirection: 'row',
-            borderBottomColor: '#ccc',
-            borderBottomWidth: 1,
-            marginBottom: 25,
-          }}>
-          <Icon
-            name="lock"
-            size={25}
-            style={{marginRight: 5, color: 'black'}}
-          />
-          <GestureHandlerRootView>
-            <TextInput
-              placeholder="Password"
-              placeholderTextColor={'black'}
-              style={{height: 35, top: -5, paddingVertical: 0}}
-              secureTextEntry={passwordVisible}
-            />
-          </GestureHandlerRootView>
-          <TouchableOpacity
-            onPress={togglePasswordVisibility}
-            style={{position: 'absolute', right: 10, alignSelf: 'center'}}>
-            <Icon
-              name={passwordVisible ? 'eye-slash' : 'eye'}
-              size={20}
-              color={'black'}
-            />
-          </TouchableOpacity>
-        </View>
-        <View
-          style={{
-            flexDirection: 'row',
-            borderBottomColor: '#ccc',
-            borderBottomWidth: 1,
-            marginBottom: 25,
-          }}>
-          <Icon
-            name="lock"
-            size={25}
-            style={{marginRight: 5, color: 'black'}}
-          />
-          <GestureHandlerRootView>
-            <TextInput
-              placeholder="Confirm Password"
-              placeholderTextColor={'black'}
-              style={{height: 35, top: -5, paddingVertical: 0,width:150}}
-              secureTextEntry={cpasswordVisible}
-            />
-          </GestureHandlerRootView>
-          <TouchableOpacity
-            onPress={togglecPasswordVisibility}
-            style={{position: 'absolute', right: 10, alignSelf: 'center'}}>
-            <Icon
-              name={cpasswordVisible ? 'eye-slash' : 'eye'}
-              size={20}
-              color={'black'}
-            />
-          </TouchableOpacity>
-        </View>
-
-        <TouchableOpacity
-          style={{
-            backgroundColor: '#FF7F32',
-            paddingTop: 10,
-            borderRadius: 10,
-            marginBottom: 30,
-            height: 50,
-            alignContent: 'center',
-          }}>
-          <Text style={{textAlign: 'center', fontWeight: '700', fontSize: 18}}>
-            Register
-          </Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={{alignItems: 'center', marginBottom: 20}}>
-          <Text style={{color: 'black', bottom: 10, fontSize: 12}}>
-            Forgot Password?
-          </Text>
-        </TouchableOpacity>
-        <Text style={{alignSelf: 'center', color: 'black'}}>
-          Or, login with..
-        </Text>
-
         <View
           style={{
             flexDirection: 'row',
             alignSelf: 'center',
-            top: 10,
+            top:-20,
             justifyContent: 'space-between',
             gap: -50,
           }}>
@@ -240,6 +90,156 @@ export default function RegistrationScreen(props) {
             />
           </TouchableOpacity>
         </View>
+        <Text style={{alignSelf: 'center', color: 'black',top:-10}}>
+          Or, login with..
+        </Text>
+
+        <View
+          style={{
+            flexDirection: 'row',
+            borderBottomColor: '#ccc',
+            borderBottomWidth: 1,
+            marginBottom: 25,
+          }}>
+          <Icon
+            name="user"
+            size={25}
+            style={{marginRight: 5, color: 'black'}}
+          />
+          <GestureHandlerRootView>
+            <TextInput
+              placeholder="Full Name"
+              placeholderTextColor={'black'}
+              style={{height: 35, top: -5, paddingVertical: 0,color:'black'}}
+            
+            />
+          </GestureHandlerRootView>
+        </View>
+
+        
+
+
+        <View
+          style={{
+            flexDirection: 'row',
+            borderBottomColor: '#ccc',
+            borderBottomWidth: 1,
+            marginBottom: 25,
+          }}>
+          <Icon
+            name="envelope"
+            size={20}
+            style={{marginRight: 5, color: 'black'}}
+          />
+          <GestureHandlerRootView>
+            <TextInput
+              placeholder="Email"
+              placeholderTextColor={'black'}
+              style={{height: 35, top: -5, paddingVertical: 0,color:'black'}}
+              keyboardType="email-address"
+            />
+          </GestureHandlerRootView>
+        </View>
+          
+        <View
+          style={{
+            flexDirection: 'row',
+            borderBottomColor: '#ccc',
+            borderBottomWidth: 1,
+            marginBottom: 25,
+          }}>
+          <Icon
+            name="phone"
+            size={25}
+            style={{marginRight: 5, color: 'black'}}
+          />
+          <GestureHandlerRootView>
+            <TextInput
+              placeholder="Phone Number"
+              placeholderTextColor={'black'}
+              style={{height: 35, top: -5, paddingVertical: 0,color:'black'}}
+              keyboardType="numeric"
+            />
+          </GestureHandlerRootView>
+        </View>
+        
+
+        <View
+          style={{
+            flexDirection: 'row',
+            borderBottomColor: '#ccc',
+            borderBottomWidth: 1,
+            marginBottom: 25,
+          }}>
+          <Icon
+            name="lock"
+            size={25}
+            style={{marginRight: 5, color: 'black'}}
+          />
+          <GestureHandlerRootView>
+            <TextInput
+              placeholder="Password"
+              placeholderTextColor={'black'}
+              style={{height: 35, top: -5, paddingVertical: 0,color:'black'}}
+              secureTextEntry={passwordVisible}
+            />
+          </GestureHandlerRootView>
+          <TouchableOpacity
+            onPress={togglePasswordVisibility}
+            style={{position: 'absolute', right: 10, alignSelf: 'center'}}>
+            <Icon
+              name={passwordVisible ? 'eye-slash' : 'eye'}
+              size={20}
+              color={'black'}
+            />
+          </TouchableOpacity>
+        </View>
+        <View
+          style={{
+            flexDirection: 'row',
+            borderBottomColor: '#ccc',
+            borderBottomWidth: 1,
+            marginBottom: 25,
+          }}>
+          <Icon
+            name="lock"
+            size={25}
+            style={{marginRight: 5, color: 'black'}}
+          />
+          <GestureHandlerRootView>
+            <TextInput
+              placeholder="Confirm Password"
+              placeholderTextColor={'black'}
+              style={{height: 35, top: -5, paddingVertical: 0,width:150,color:'black'}}
+              secureTextEntry={cpasswordVisible}
+            />
+          </GestureHandlerRootView>
+          <TouchableOpacity
+            onPress={togglecPasswordVisibility}
+            style={{position: 'absolute', right: 10, alignSelf: 'center'}}>
+            <Icon
+              name={cpasswordVisible ? 'eye-slash' : 'eye'}
+              size={20}
+              color={'black'}
+            />
+          </TouchableOpacity>
+        </View>
+
+        <TouchableOpacity
+          style={{
+            backgroundColor: '#FF7F32',
+            paddingTop: 10,
+            borderRadius: 10,
+            marginBottom: 30,
+            height: 50,
+            alignContent: 'center',
+          }}>
+          <Text style={{textAlign: 'center', fontWeight: '700', fontSize: 18}}>
+            Register
+          </Text>
+        </TouchableOpacity>
+
+       
         <View
           style={{
             flexDirection: 'row',
@@ -247,9 +247,9 @@ export default function RegistrationScreen(props) {
             marginBottom: 80,
             top: 30,
           }}>
-          <Text style={{color: 'black'}}>Already registered?</Text>
+          <Text style={{color: 'black',top:-30}}>Already registered?</Text>
           <TouchableOpacity onPress={()=> navigation.goBack()}>
-            <Text style={{color: '#FF7F32'}}>Login</Text>
+            <Text style={{color: '#FF7F32',top:-30}}>Login</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>

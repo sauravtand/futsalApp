@@ -19,6 +19,7 @@ import PlayScreen from './Screens/PlayScreen';
 import ProfileScreen from './Screens/ProfileScreen';
 import LoginScreen from './Screens/LoginScreen';
 import RegistrationScreen from './Screens/RegistrationScreen';
+import AnimatedLoader from './Screens/AnimatedLoader';
 
 const {width, height} = Dimensions.get('window');
 //for bottom tab navigation
@@ -47,11 +48,14 @@ export default function MainContainer() {
             backgroundColor: '#FEFEFE', // Customize your header background color
           },
         }}>
+         
         <Stack.Screen
           name="LoginScreen"
           component={LoginScreen}
           options={{headerShown: false}}
+
         />
+
         <Stack.Screen
           name="RegistrationScreen"
           component={RegistrationScreen}
