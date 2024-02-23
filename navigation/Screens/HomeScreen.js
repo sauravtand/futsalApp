@@ -1,78 +1,137 @@
-import {View, Text,StyleSheet, TouchableOpacity,ScrollView} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  ScrollView,
+  Image,
+  SectionHeader,
+} from 'react-native';
 import React from 'react';
-
+import TopFutsalCarousel from './TopFutsalCarousel';
+import {TOP_FUTSAL} from '../data/constList';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 export default function HomeScreen(navigation) {
   return (
-    
-    <View
-      style={{
-        borderRadius: 10,
-        height: 160,
-        width: 340,
-        borderWidth: 0,
-        alignSelf: 'center',
-        top: 20,
-        backgroundColor: '#FEFEFE',
-        
-      }}>
-        <View style={{flexDirection:'row',width:340,height:20}}> 
+    <View style={{height: '100%'}}>
       <View
         style={{
-          backgroundColor: '#F3F3F3',
-          width: 100,
-          left: 20,
+          borderRadius: 10,
+          height: 160,
+          width: 340,
+          borderWidth: 0,
+          alignSelf: 'center',
           top: 20,
-          height: 25,
-          justifyContent: 'center',
+          backgroundColor: '#FEFEFE',
         }}>
-        <Text style={{color: 'black', alignSelf: 'center', fontSize: 10}}>
-          START PLAYING!
-        </Text>
-      </View>
-      <TouchableOpacity>
-      <View style={{borderWidth:1,left:130,height:30,top:30,width:90,alignItems:'center',borderRadius:10}}>
-        
-          <Text style={{color:'black', alignSelf:'center'}}>Create</Text> 
+        <View style={{flexDirection: 'row', width: 340, height: 20}}>
+          <View
+            style={{
+              backgroundColor: '#F3F3F3',
+              width: 100,
+              left: 20,
+              top: 20,
+              height: 25,
+              justifyContent: 'center',
+            }}>
+            <Text style={{color: 'black', alignSelf: 'center', fontSize: 10}}>
+              START PLAYING!
+            </Text>
           </View>
+          <TouchableOpacity>
+            <View
+              style={{
+                borderWidth: 1,
+                left: 130,
+                height: 30,
+                top: 30,
+                width: 90,
+                alignItems: 'center',
+                borderRadius: 10,
+              }}>
+              <Text style={{color: 'black', alignSelf: 'center'}}>Create</Text>
+            </View>
           </TouchableOpacity>
-      </View>
-     
-      <View>
-      <View style={{ width: 110,left:20,top:30,height:25,justifyContent:'center'}}>
-        <Text style={{color: 'black', alignSelf: 'center',fontSize:16,fontWeight:'bold'}}>
-        Create Game
-        </Text>
-      </View>
+        </View>
 
+        <View>
+          <View
+            style={{
+              width: 110,
+              left: 20,
+              top: 30,
+              height: 25,
+              justifyContent: 'center',
+            }}>
+            <Text
+              style={{
+                color: 'black',
+                alignSelf: 'center',
+                fontSize: 16,
+                fontWeight: 'bold',
+              }}>
+              Create Game
+            </Text>
+          </View>
+        </View>
+        <View
+          style={{
+            width: 115,
+            left: 22,
+            top: 30,
+            height: 25,
+            justifyContent: 'center',
+          }}>
+          <Text style={{color: 'black', alignSelf: 'center', fontSize: 10}}>
+            Find opponent near you
+          </Text>
+        </View>
+        <View style={styles.line}></View>
+        <TouchableOpacity>
+          <Text
+            style={{
+              color: 'black',
+              alignSelf: 'center',
+              top: 30,
+              textDecorationLine: 'underline',
+            }}>
+            View My Schedule
+          </Text>
+        </TouchableOpacity>
       </View>
-      <View style={{ width: 115,left:22,top:30,height:25,justifyContent:'center'}}>
-        <Text style={{color: 'black', alignSelf: 'center',fontSize:10}}>
-          Find opponent near you
+      <View
+        style={{
+          height: 30,
+          width: 340,
+          left: 22,
+          top: 40,
+          flexDirection: 'row',
+        }}>
+        <Text style={{color: 'black', fontWeight: 'bold'}}>
+          Book A Futsal Nearby
         </Text>
+        <TouchableOpacity style={{left: 110, flexDirection: 'row'}}>
+          <Text style={{color: '#08C208'}}>SEE ALL</Text>
+          <Icon
+            name="angle-right"
+            size={20}
+            style={{color: '#08C208', left: 5}}
+          />
+        </TouchableOpacity>
       </View>
-      <View style={styles.line}></View>
-      <TouchableOpacity>
-        <Text style={{color:'black',alignSelf:'center',top:30,textDecorationLine:'underline'}}>View My Schedule</Text>
-      </TouchableOpacity>
-      <View style={{top:70,paddingLeft:20,borderWidth:2,height:100,width:100,borderBottomColor:'white'}}><Text>Hello</Text></View>
+      <ScrollView showsVerticalScrollIndicator={false} style={{top: 40}}>
+        <TopFutsalCarousel list={TOP_FUTSAL} />
+      </ScrollView>
     </View>
-   
-     
-
-     
-
   );
 }
-const styles=StyleSheet.create({
+const styles = StyleSheet.create({
   line: {
-    borderBottomColor: '#F1E8E8', 
+    borderBottomColor: '#F1E8E8',
     borderBottomWidth: 1,
     width: '100%',
-    height:20,
-    top:20
+    height: 20,
+    top: 20,
   },
-
-}
-
-)
+});

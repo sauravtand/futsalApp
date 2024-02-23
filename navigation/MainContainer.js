@@ -19,7 +19,7 @@ import PlayScreen from './Screens/PlayScreen';
 import ProfileScreen from './Screens/ProfileScreen';
 import LoginScreen from './Screens/LoginScreen';
 import RegistrationScreen from './Screens/RegistrationScreen';
-import AnimatedLoader from './Screens/AnimatedLoader';
+
 
 const {width, height} = Dimensions.get('window');
 //for bottom tab navigation
