@@ -9,12 +9,15 @@ import {
 } from 'react-native';
 import React from 'react';
 import TopFutsalCarousel from './TopFutsalCarousel';
-import {TOP_FUTSAL} from '../data/constList';
+import {TOP_FUTSAL, TOP_GAME} from '../data/constList';
+import TopGameCarousel from './TopGameCarousel';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function HomeScreen(navigation) {
   return (
-    <View style={{height: '100%'}}>
+    <SafeAreaView  style={{flex: 1, justifyContent: 'center', backgroundColor: '#E6E6E6',height:1000}}> 
+    <ScrollView >
       <View
         style={{
           borderRadius: 10,
@@ -120,10 +123,40 @@ export default function HomeScreen(navigation) {
           />
         </TouchableOpacity>
       </View>
-      <ScrollView showsVerticalScrollIndicator={false} style={{top: 40}}>
+      <ScrollView showsVerticalScrollIndicator={false} style={{top: 40,borderColor:'black',borderRadius:2,height:350}}>
         <TopFutsalCarousel list={TOP_FUTSAL} />
       </ScrollView>
-    </View>
+      <View
+        style={{
+          borderWidth:0,
+          borderColor:'black',
+          height: 30,
+          width: 340,
+          left: 22,
+          top: -80,
+          flexDirection: 'row',
+          
+        }}>
+        <Text style={{color: 'black', fontWeight: 'bold'}}>
+          Join A Game Nearby
+        </Text>
+        <TouchableOpacity style={{left: 110, flexDirection: 'row'}}>
+          <Text style={{color: '#08C208'}}>SEE ALL</Text>
+          <Icon
+            name="angle-right"
+            size={20}
+            style={{color: '#08C208', left: 5}}
+          />
+        </TouchableOpacity>
+      </View>
+      
+      <ScrollView style={{top:-80,borderWidth:0,borderColor:'black'}}>
+      <TopGameCarousel list={TOP_GAME} />
+      </ScrollView>
+   
+      
+    </ScrollView>
+    </SafeAreaView>
   );
 }
 const styles = StyleSheet.create({

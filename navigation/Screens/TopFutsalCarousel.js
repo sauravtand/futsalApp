@@ -1,12 +1,14 @@
-import {  FlatList,
+import {
+  FlatList,
   Text,
   View,
   StyleSheet,
   TouchableOpacity,
-  Image, } from 'react-native'
-import React from 'react'
-import {sizes, spacing,shadow} from '../constants/theme'
-
+  Image,
+} from 'react-native';
+import React from 'react';
+import {sizes, spacing, shadow, colors} from '../constants/theme';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 const CARD_WIDTH = sizes.width - 80;
 const CARD_HEIGHT = 200;
@@ -35,7 +37,28 @@ export default function TopFutsalCarousel({list}) {
               </View>
               <View style={styles.titleBox}>
                 <Text style={styles.title}>{item.title}</Text>
-                <Text style={styles.location}>{item.location}</Text>
+               
+
+                <Text style={styles.location}><Icon name="map-marker" size={12} color={'orange'} style={{left:10}} />{item.location}</Text>
+                <View style={{flexDirection: 'row', top: 3, marginBottom: 4}}>
+                  <Image
+                    source={require('../Screens/images/stars.png')}
+                    style={{height: 10, width: 10, resizeMode: 'cover'}}
+                  />
+                  <Image
+                    source={require('../Screens/images/stars.png')}
+                    style={{height: 10, width: 10, resizeMode: 'cover'}}
+                  />
+                  <Image
+                    source={require('../Screens/images/stars.png')}
+                    style={{height: 10, width: 10, resizeMode: 'cover'}}
+                  />
+                  <Image
+                    source={require('../Screens/images/stars.png')}
+                    style={{height: 10, width: 10, resizeMode: 'cover'}}
+                  />
+                </View>
+
                 <Text style={styles.description}>{item.description}</Text>
               </View>
             </View>
@@ -44,19 +67,13 @@ export default function TopFutsalCarousel({list}) {
       }}
     />
   );
-};
+}
 
 const styles = StyleSheet.create({
   card: {
     width: CARD_WIDTH,
     height: CARD_HEIGHT,
     marginVertical: 10,
-  },
-  favorite: {
-    position: 'absolute',
-    top: spacing.m,
-    right: spacing.m,
-    zIndex: 1,
   },
   imageBox: {
     width: CARD_WIDTH,
@@ -75,17 +92,19 @@ const styles = StyleSheet.create({
     left: 16,
   },
   title: {
-    fontSize: 10,
+    fontSize: 14,
     fontWeight: 'bold',
-    // 
+    color: colors.white,
+    
   },
   location: {
     fontSize: 10,
-    // color: colors.white,
+    color: colors.white,
+    
   },
   description: {
     fontSize: 10,
     fontWeight: 'bold',
-    // 
+    //
   },
 });
