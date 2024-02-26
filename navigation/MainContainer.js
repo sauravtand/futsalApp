@@ -62,6 +62,7 @@ export default function MainContainer() {
           options={{headerShown: false}}
         />
         <Stack.Screen name="MainTabs" component={MainTabs} />
+        
       </Stack.Navigator>
     </NavigationContainer>
   );
