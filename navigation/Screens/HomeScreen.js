@@ -23,7 +23,7 @@ export default function HomeScreen({navigation}) {
         flex: 1,
         justifyContent: 'center',
         backgroundColor: '#E6E6E6',
-        height: 1000,
+        // height: 1000,
       }}>
       <ScrollView>
         <View
