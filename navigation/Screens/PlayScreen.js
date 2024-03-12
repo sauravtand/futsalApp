@@ -36,6 +36,7 @@ export default function PlayScreen({list}) {
       showsHorizontalScrollIndicator={false}
       keyExtractor={i => i.id}
       style={{borderWidth:0,borderColor:'red',flex:1,marginBottom:70}}
+      showsVerticalScrollIndicator={false}
       renderItem={({item, index}) => {
         return (
           
@@ -131,6 +132,7 @@ const styles = StyleSheet.create({
   description: {
     fontSize: 10,
     fontWeight: 'bold',
+    color:colors.white,
     //
   },
   favourite:{

@@ -17,8 +17,8 @@ export function BookContent() {
     setSearchText('');
   };
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const [selectedRadio,setSelectedRadio]=useState(0)
-  const [isavailModal,setIsAvailModal]=useState(false);
+  const [selectedRadio, setSelectedRadio] = useState(0);
+  const [isavailModal, setIsAvailModal] = useState(false);
 
   return (
     <View
@@ -27,7 +27,7 @@ export function BookContent() {
         borderColor: 'red',
         backgroundColor: '#FEFEFE',
         height: 190,
-        width: 380,
+        width: 400,
       }}>
       <View
         style={{
@@ -97,7 +97,7 @@ export function BookContent() {
             />
           </View>
         </TouchableOpacity>
-        <TouchableOpacity onPress={()=>setIsAvailModal(true)}>
+        <TouchableOpacity onPress={() => setIsAvailModal(true)}>
           <View
             style={{
               borderWidth: 2,
@@ -190,7 +190,7 @@ export function BookContent() {
                   x
                 </Text>
               </View>
-            </TouchableOpacity >
+            </TouchableOpacity>
             <View
               style={{
                 alignSelf: 'center',
@@ -212,7 +212,7 @@ export function BookContent() {
                   alignItems: 'center',
                 }}>
                 <Text style={{color: 'black'}}>Popularity</Text>
-                <TouchableOpacity onPress={()=>setSelectedRadio(1)}>
+                <TouchableOpacity onPress={() => setSelectedRadio(1)}>
                   <View
                     style={{
                       height: 25,
@@ -222,18 +222,21 @@ export function BookContent() {
                       left: 235,
                       borderRadius: 25,
                     }}>
-                      {
-                      selectedRadio==1?   <View style={{ height: 18,
-                        borderWidth: 0,
-                        borderColor: 'black',
-                        width: 18,
-                        backgroundColor:'#08C208',
-                        borderRadius: 18,
-                        top:1.5,
-                        alignSelf:'center'
-                        }}/>:null
-                    }
-                    </View>
+                    {selectedRadio == 1 ? (
+                      <View
+                        style={{
+                          height: 18,
+                          borderWidth: 0,
+                          borderColor: 'black',
+                          width: 18,
+                          backgroundColor: '#08C208',
+                          borderRadius: 18,
+                          top: 1.5,
+                          alignSelf: 'center',
+                        }}
+                      />
+                    ) : null}
+                  </View>
                 </TouchableOpacity>
               </View>
               <View
@@ -246,7 +249,7 @@ export function BookContent() {
                   alignItems: 'center',
                 }}>
                 <Text style={{color: 'black'}}>Distance</Text>
-                <TouchableOpacity onPress={()=>setSelectedRadio(2)}>
+                <TouchableOpacity onPress={() => setSelectedRadio(2)}>
                   <View
                     style={{
                       height: 25,
@@ -256,60 +259,96 @@ export function BookContent() {
                       left: 245,
                       borderRadius: 25,
                     }}>
-                    {
-                      selectedRadio==2?   <View style={{ height: 18,
-                        borderWidth: 0,
-                        borderColor: 'black',
-                        width: 18,
-                        backgroundColor:'#08C208',
-                        borderRadius: 18,
-                        top:1.5,
-                        alignSelf:'center'
-                        }}/>:null
-                    }
-
-                      
-                    </View>
+                    {selectedRadio == 2 ? (
+                      <View
+                        style={{
+                          height: 18,
+                          borderWidth: 0,
+                          borderColor: 'black',
+                          width: 18,
+                          backgroundColor: '#08C208',
+                          borderRadius: 18,
+                          top: 1.5,
+                          alignSelf: 'center',
+                        }}
+                      />
+                    ) : null}
+                  </View>
                 </TouchableOpacity>
               </View>
-             
             </View>
           </View>
         </View>
       </Modal>
-      
-      <Modal  visible={isavailModal}
+
+      <Modal
+        visible={isavailModal}
         onRequestClose={() => setIsAvailModal(false)}
-        transparent={true}
-       >
-        <View style={{flex:1,backgroundColor:'rgba(0, 0, 0, 0.5)',justifyContent:'flex-end'}}>
-        <TouchableOpacity onPress={() => setIsAvailModal(false)}>
-              <View
+        transparent={true}>
+        <View
+          style={{
+            flex: 1,
+            backgroundColor: 'rgba(0, 0, 0, 0.5)',
+            justifyContent: 'flex-end',
+          }}>
+          <TouchableOpacity onPress={() => setIsAvailModal(false)}>
+            <View
+              style={{
+                right: 20,
+                top: -15,
+                borderRadius: 20,
+                backgroundColor: '#FEFEFE',
+                width: 30,
+                alignSelf: 'flex-end',
+                alignItems: 'center',
+              }}>
+              <Text
                 style={{
-                  right: 20,
-                  top: -15,
-                  borderRadius: 20,
-                  backgroundColor: '#FEFEFE',
-                  width: 30,
-                  alignSelf: 'flex-end',
-                  alignItems: 'center',
+                  alignSelf: 'center',
+                  marginRight: 10,
+                  marginTop: 10,
+                  left: 5,
+                  top: -6,
+                  color: 'black',
                 }}>
-                <Text
-                  style={{
-                    alignSelf: 'center',
-                    marginRight: 10,
-                    marginTop: 10,
-                    left: 5,
-                    top: -6,
-                    color: 'black',
-                  }}>
-                  x
-                </Text>
+                x
+              </Text>
+            </View>
+          </TouchableOpacity>
+          <View
+            style={{
+              height: 600,
+              width: 400,
+              marginBottom: 5,
+              alignSelf: 'center',
+              borderRadius: 10,
+              backgroundColor: '#FEFEFE',
+            }}>
+            <View
+              style={{
+                borderWidth: 2,
+                borderColor: '#E9E9E9',
+                height: 300,
+                width: 380,
+                alignSelf: 'center',
+                top: 20,
+                borderRadius: 10,
+              }}>
+              <Icon
+                name="calendar"
+                size={20}
+                style={{color: '#434343', left: 10, top: 15}}
+              />
+              <Text style={{left: 40,top:-7,color:'#434343',fontSize:16}}>Check Venue Availability</Text>
+              <View style={{borderWidth:2,borderColor:'red',width:350,height:150,top:10,alignSelf:'center'}}>
+                <Text>Slot Date</Text>
+                <TouchableOpacity>
+                  <View style={{}}></View>
+                </TouchableOpacity>
               </View>
-            </TouchableOpacity >
-          <View style={{height:600,width:350,alignSelf:'center',borderRadius:10,backgroundColor:'#FEFEFE'}}></View>
+            </View>
+          </View>
         </View>
-     
       </Modal>
     </View>
   );
