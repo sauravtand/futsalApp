@@ -5,13 +5,14 @@ import { BookContent } from './BookContent';
 import PlayScreen from './PlayScreen';
 import { TOP_FUTSAL } from '../data/constList';
 import { ScrollView } from 'react-native';
+import FutsalListScreen from './FutsalListScreen';
 
-export default function BookScreen() {
+export default function BookScreen({navigation}) {
   return (
     <SafeAreaView style={{ flex: 1,alignItems:'center' }}>
       <BookContent />
-        <PlayScreen list={TOP_FUTSAL} /> 
-      
+        <FutsalListScreen navigation={navigation}  list={TOP_FUTSAL} /> 
+       
     </SafeAreaView>
   );
 }

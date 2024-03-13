@@ -19,6 +19,8 @@ import PlayScreen from './Screens/PlayScreen';
 import ProfileScreen from './Screens/ProfileScreen';
 import LoginScreen from './Screens/LoginScreen';
 import RegistrationScreen from './Screens/RegistrationScreen';
+import FutsalInfo from './Screens/FutsalInfo';
+import FutsalListScreen from './Screens/FutsalListScreen';
 
 
 const {width, height} = Dimensions.get('window');
@@ -61,6 +63,10 @@ export default function MainContainer() {
           component={RegistrationScreen}
           options={{headerShown: false}}
         />
+       
+
+
+        <Stack.Screen name="FutsalInfo" component={FutsalInfo} options={{ headerShown: false }} />
         <Stack.Screen name="MainTabs" component={MainTabs} />
         
       </Stack.Navigator>
@@ -140,7 +146,7 @@ function CustomHeader({navigation}) {
         </TouchableOpacity>
       </View>
 
-      <TouchableOpacity onPress={() => navigation.navigate('Notifications')}>
+      <TouchableOpacity >
         <Image
           source={require('../assets/pictures/bell.png')} // Add your notification icon image
           style={styles.notificationIcon}
