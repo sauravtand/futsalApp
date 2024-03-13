@@ -7,7 +7,10 @@ import {
   TouchableOpacity,
   Image,
   Modal,
+  Button,
 } from 'react-native';
+import DateTimePickerModal from 'react-native-modal-datetime-picker';
+
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 export function BookContent() {
@@ -20,6 +23,95 @@ export function BookContent() {
   const [selectedRadio, setSelectedRadio] = useState(0);
   const [isavailModal, setIsAvailModal] = useState(false);
 
+  const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+  const [selectedDate, setSelectedDate] = useState('Select Date');
+
+  {
+    /* time picker */
+  }
+  const [isStartTimePickerVisible, setIsStartTimePickerVisible] =
+    useState(false);
+  const [isEndTimePickerVisible, setIsEndTimePickerVisible] = useState(false);
+  const showStartTimePicker = () => {
+    setIsStartTimePickerVisible(true);
+  };
+  const [selectedStartTime, setSelectedStartTime] = useState('Start Time');
+  const [selectedEndTime, setSelectedEndTime] = useState('End Time');
+  const hideStartTimePicker = () => {
+    setIsStartTimePickerVisible(false);
+  };
+
+  const showEndTimePicker = () => {
+    setIsEndTimePickerVisible(true);
+  };
+
+  const hideEndTimePicker = () => {
+    setIsEndTimePickerVisible(false);
+  };
+  const handleConfirmStartTime = date => {
+    const hours = date.getHours();
+    const minutes = date.getMinutes();
+    const formattedHours = hours < 10 ? '0' + hours : hours;
+    const formattedMinutes = minutes < 10 ? '0' + minutes : minutes;
+    const period = hours >= 12 ? 'PM' : 'AM';
+    const formattedTime =
+      formattedHours + ':' + formattedMinutes + ' ' + period;
+    setSelectedStartTime(formattedTime);
+    hideStartTimePicker();
+  };
+
+  const handleConfirmEndTime = date => {
+    const hours = date.getHours();
+    const minutes = date.getMinutes();
+    const formattedHours = hours < 10 ? '0' + hours : hours;
+    const formattedMinutes = minutes < 10 ? '0' + minutes : minutes;
+    const period = hours >= 12 ? 'PM' : 'AM';
+    const formattedTime = formattedHours + ':' + formattedMinutes + ' ' + period;
+    setSelectedEndTime(formattedTime);
+    hideEndTimePicker();
+  };
+  
+
+  {
+    /* date picker */
+  }
+
+  const showDatePicker = () => {
+    setDatePickerVisibility(true);
+  };
+
+  const hideDatePicker = () => {
+    setDatePickerVisibility(false);
+  };
+
+  const handleConfirm = date => {
+    const currentDate = new Date();
+
+    if (date < currentDate) {
+      alert('Cannot select past dates');
+      setSelectedDate('Select Date');
+      // Show date picker modal again
+      showDatePicker();
+      return;
+    }
+
+    const options = {weekday: 'long', month: 'short', day: '2-digit'};
+    const formattedDate = date.toLocaleDateString('en-US', options);
+    setSelectedDate(formattedDate);
+    hideDatePicker();
+  };
+
+  const handleDateSelection = () => {
+    // Show date picker modal when clicked again
+    showDatePicker();
+  };
+  
+  const handleReset = () => {
+    setSelectedDate('Select Date');
+    setSelectedStartTime('Start Time');
+    setSelectedEndTime('End Time');
+  };
+  
   return (
     <View
       style={{
@@ -339,13 +431,216 @@ export function BookContent() {
                 size={20}
                 style={{color: '#434343', left: 10, top: 15}}
               />
-              <Text style={{left: 40,top:-7,color:'#434343',fontSize:16}}>Check Venue Availability</Text>
-              <View style={{borderWidth:2,borderColor:'red',width:350,height:150,top:10,alignSelf:'center'}}>
-                <Text>Slot Date</Text>
-                <TouchableOpacity>
-                  <View style={{}}></View>
+              <Text style={{left: 40, top: -7, color: '#434343', fontSize: 16}}>
+                Check Venue Availability
+              </Text>
+              <View
+                style={{
+                  borderWidth: 0,
+                  borderColor: 'red',
+                  width: 350,
+                  height: 150,
+                  top: 10,
+                  alignSelf: 'center',
+                }}>
+                <Text style={{left: 10, color: '#434343'}}>Slot Date</Text>
+
+                <TouchableOpacity onPress={handleDateSelection}>
+                  <View
+                    style={{
+                      borderRadius: 10,
+                      borderWidth: 2,
+                      borderColor: '#E9E9E9',
+                      top: 10,
+                      height: 50,
+                      width: 330,
+                      left: 10,
+                      flexDirection: 'row',
+                    }}>
+                    <Text style={{top: 10, left: 15, color: '#434343'}}>
+                      {selectedDate}
+                    </Text>
+                    <Icon
+                      name="calendar"
+                      size={20}
+                      style={{
+                        right: 10,
+                        top: 10,
+                        position: 'absolute',
+                        color: '#434343',
+                      }}></Icon>
+                  </View>
+                  <DateTimePickerModal
+                    isVisible={isDatePickerVisible}
+                    mode="date"
+                    onConfirm={handleConfirm}
+                    onCancel={hideDatePicker}
+                  />
                 </TouchableOpacity>
+
+                <View
+                  style={{
+                    borderTopWidth: 2,
+                    borderColor: '#E9E9E9',
+                    top: 30,
+                    height: 100,
+                  }}>
+                  <Text style={{left: 10, top: 15, color: '#434343'}}>
+                    Slot Time
+                  </Text>
+                  <View
+                    style={{
+                      borderWidth: 0,
+                      borderColor: 'green',
+                      top: 0,
+                      height: 80,
+                      flexDirection: 'row',
+                    }}>
+                    <TouchableOpacity
+                      style={{flexDirection: 'row', alignItems: 'center'}}
+                      onPress={showStartTimePicker}>
+                      <View
+                        style={{
+                          borderRadius: 10,
+                          borderWidth: 2,
+                          borderColor: '#E9E9E9',
+                          top: 10,
+                          height: 50,
+                          width: 150,
+                          left: 10,
+                          flexDirection: 'row',
+                        }}>
+                        <Text style={{top: 10, left: 15, color: '#434343'}}>
+                          {selectedStartTime}
+                        </Text>
+                        <Icon
+                          name="clock-o"
+                          size={20}
+                          style={{
+                            right: 10,
+                            top: 10,
+                            position: 'absolute',
+                            color: '#434343',
+                          }}></Icon>
+                      </View>
+                      <DateTimePickerModal
+                        isVisible={isStartTimePickerVisible}
+                        mode="time"
+                        onConfirm={handleConfirmStartTime}
+                        onCancel={hideStartTimePicker}
+                      />
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                      style={{flexDirection: 'row', alignItems: 'center'}}
+                      onPress={showEndTimePicker}>
+                      <View
+                        style={{
+                          borderRadius: 10,
+                          borderWidth: 2,
+                          borderColor: '#E9E9E9',
+                          top: 10,
+                          height: 50,
+                          width: 150,
+                          left: 30,
+                          flexDirection: 'row',
+                        }}>
+                        <Text style={{top: 10, left: 15, color: '#434343'}}>
+                          {selectedEndTime}
+                        </Text>
+                        <Icon
+                          name="clock-o"
+                          size={20}
+                          style={{
+                            right: 10,
+                            top: 10,
+                            position: 'absolute',
+                            color: '#434343',
+                          }}></Icon>
+                      </View>
+                      <DateTimePickerModal
+                        isVisible={isEndTimePickerVisible}
+                        mode="time"
+                        onConfirm={handleConfirmEndTime}
+                        onCancel={hideEndTimePicker}
+                      />
+                    </TouchableOpacity>
+                  </View>
+                </View>
               </View>
+            </View>
+            <View
+              style={{
+                borderWidth: 0,
+                top: 60,
+                height: 60,
+                width: 400,
+                alignSelf: 'center',
+                backgroundColor: '#F3F3F3',
+                alignItems: 'center',
+              }}>
+              <Text style={{color: '#4A4C4B', top: 20, fontSize: 14}}>
+                {selectedDate} || {selectedStartTime} to {selectedEndTime}
+              </Text>
+            </View>
+
+            <View
+              style={{
+                borderWidth: 0,
+                borderColor: 'red',
+                top: 100,
+                height: 120,
+                flexDirection: 'row',
+              }}>
+              <TouchableOpacity onPress={handleReset}>
+                <View
+                  style={{
+                    borderWidth: 2,
+                    borderColor: '#E9E9E9',
+                    width: 180,
+                    height: 80,
+                    alignSelf: 'center,',
+                    left: 10,
+                    top: 20,
+                    borderRadius: 20,
+                  }}>
+                  <Text
+                    style={{
+                      color: '#424645',
+                      fontWeight: 'bold',
+                      alignSelf: 'center',
+                      top: 25,
+                      fontSize: 16,
+                    }}>
+                    RESET
+                  </Text>
+                </View>
+              </TouchableOpacity>
+
+              <TouchableOpacity >
+                <View
+                  style={{
+                    borderWidth: 0,
+                    borderColor: 'black',
+                    width: 180,
+                    height: 80,
+                    alignSelf: 'center,',
+                    left: 30,
+                    top: 20,
+                    borderRadius: 20,
+                    backgroundColor: '#26A764',
+                  }}>
+                  <Text
+                    style={{
+                      color: '#FCFFF6',
+                      fontWeight: 'bold',
+                      alignSelf: 'center',
+                      top: 25,
+                      fontSize: 16,
+                    }}>
+                    SHOW RESULTS
+                  </Text>
+                </View>
+              </TouchableOpacity>
             </View>
           </View>
         </View>
