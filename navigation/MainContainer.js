@@ -11,6 +11,7 @@ import React, {useState, useEffect} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import PriceChart from './Screens/PriceChart';
 
 //Screens
 import HomeScreen from './Screens/HomeScreen';
@@ -20,6 +21,7 @@ import ProfileScreen from './Screens/ProfileScreen';
 import LoginScreen from './Screens/LoginScreen';
 import RegistrationScreen from './Screens/RegistrationScreen';
 import FutsalInfo from './Screens/FutsalInfo';
+import BookFutsal from './Screens/BookFutsal';
 import FutsalListScreen from './Screens/FutsalListScreen';
 
 
@@ -67,6 +69,8 @@ export default function MainContainer() {
 
 
         <Stack.Screen name="FutsalInfo" component={FutsalInfo} options={{ headerShown: false }} />
+        <Stack.Screen name="PriceChart" component={PriceChart} options={{ headerShown: false }} />
+        <Stack.Screen name="BookFutsal" component={BookFutsal} options={{ headerShown: false }} />
         <Stack.Screen name="MainTabs" component={MainTabs} />
         
       </Stack.Navigator>

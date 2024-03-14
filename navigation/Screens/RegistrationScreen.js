@@ -8,6 +8,8 @@ import '@react-native-firebase/auth'
 import '@react-native-firebase/firestore'
 
 
+
+
 export default function RegistrationScreen(props) {
   const [passwordVisible, setPasswordVisible] = useState(true);
   const togglePasswordVisibility = () => {
