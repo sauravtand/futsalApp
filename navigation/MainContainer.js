@@ -22,7 +22,10 @@ import LoginScreen from './Screens/LoginScreen';
 import RegistrationScreen from './Screens/RegistrationScreen';
 import FutsalInfo from './Screens/FutsalInfo';
 import BookFutsal from './Screens/BookFutsal';
+import CreateGameScreen from './Screens/CreateGameScreen';
+import BookingDetails from './Screens/BookingDetails';
 import FutsalListScreen from './Screens/FutsalListScreen';
+import { BOOKINGS } from './data/constList';
 
 
 const {width, height} = Dimensions.get('window');
@@ -70,7 +73,9 @@ export default function MainContainer() {
 
         <Stack.Screen name="FutsalInfo" component={FutsalInfo} options={{ headerShown: false }} />
         <Stack.Screen name="PriceChart" component={PriceChart} options={{ headerShown: false }} />
-        <Stack.Screen name="BookFutsal" component={BookFutsal} options={{ headerShown: false }} />
+        <Stack.Screen name="BookFutsal"  component={BookFutsal} options={{ headerShown: false }} />
+        <Stack.Screen name="CreateGameScreen" component={CreateGameScreen} options={{ headerShown: false }} />
+        <Stack.Screen name="BookingDetails" list={BOOKINGS} component={BookingDetails} options={{ headerShown: false }} />
         <Stack.Screen name="MainTabs" component={MainTabs} />
         
       </Stack.Navigator>

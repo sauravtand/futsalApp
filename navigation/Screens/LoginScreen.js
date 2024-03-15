@@ -105,7 +105,7 @@ export default function LoginScreen(props) {
             alignContent: 'center',
           }}
           onPress={handleLogin}>
-          <Text style={{textAlign: 'center', fontWeight: '700', fontSize: 18}}>
+          <Text style={{textAlign: 'center', fontWeight: '700', fontSize: 18,color:'white'}}>
             Login
           </Text>
         </TouchableOpacity>

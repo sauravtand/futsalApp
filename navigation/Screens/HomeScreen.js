@@ -50,7 +50,7 @@ export default function HomeScreen({navigation}) {
                 START PLAYING!
               </Text>
             </View>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={()=>navigation.navigate("CreateGameScreen")}>
               <View
                 style={{
                   borderWidth: 1,
@@ -138,7 +138,7 @@ export default function HomeScreen({navigation}) {
         <ScrollView
           showsVerticalScrollIndicator={false}
           style={{top: 40, borderColor: 'black', borderRadius: 2, height: 350}}>
-          <TopFutsalCarousel list={TOP_FUTSAL} />
+          <TopFutsalCarousel list={TOP_FUTSAL} navigation={navigation}/>
         </ScrollView>
         <View
           style={{

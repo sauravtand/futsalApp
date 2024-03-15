@@ -14,7 +14,7 @@ const CARD_WIDTH = sizes.width - 80;
 const CARD_HEIGHT = 200;
 const CARD_WIDTH_SPACING = CARD_WIDTH + spacing.l;
 
-export default function TopFutsalCarousel({list}) {
+export default function TopFutsalCarousel({list,navigation}) {
   return (
     <FlatList
       data={list}
@@ -26,9 +26,11 @@ export default function TopFutsalCarousel({list}) {
       renderItem={({item, index}) => {
         return (
           <TouchableOpacity
+          onPress={()=>navigation.navigate('FutsalInfo')}
             style={{
               marginLeft: spacing.l,
               marginRight: index === list.length - 1 ? spacing.l : 0,
+              
             }}>
             <View style={[styles.card, shadow.dark]}>
               {/* <FavoriteButton style={styles.favorite} /> */}

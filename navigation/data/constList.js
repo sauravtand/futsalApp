@@ -82,3 +82,89 @@ export const TOP_GAME = [
  
   
 ];
+export const TOP_BOOKING = [
+  {
+    id: 1,
+    title: 'Shankhamul Futsal',
+    date: ' 20 Mar,2024',
+    time: '09:00 AM-10:00 AM',
+    description:
+      'Booking',
+  },
+  {
+    id: 2,
+    title: 'Sunrise Futsal',
+    date: ' 22 Mar,2024',
+    time: '10:00 AM-11:00 AM',
+    description:
+      'Match',
+  },
+ 
+  {
+    id: 3,
+    title: 'Shankhamul Futsal',
+    date: ' 22 Mar,2024',
+    time: '09:00 AM-10:00 AM',
+    description:
+      'Booking',
+  },
+  {
+    id: 4,
+    title: 'Shankhamul Futsal',
+    date: ' 27 Mar,2024',
+    time: '09:00 AM-10:00 AM',
+    description:
+      'Match',
+  },
+ 
+  
+];
+export const BOOKINGS = [
+  {
+    id: 1,
+    title: 'Shankhamul Futsal',
+    date: ' 20 Mar,2024',
+    time: '09:00 AM-10:00 AM',
+    type: '5a side',
+    status:'Confirmed',
+    method:'esewa',
+    description:
+      'Booking',
+  },
+  {
+    id: 2,
+    title: 'Sunrise Futsal',
+    date: ' 22 Mar,2024',
+    time: '10:00 AM-11:00 AM',
+    type: '5a side',
+    status:'Pending',
+    method:'khalti',
+    description:
+      'Match',
+  },
+ 
+  {
+    id: 3,
+    title: 'Shankhamul Futsal',
+    date: ' 22 Mar,2024',
+    time: '09:00 AM-10:00 AM',
+    type: '7a side',
+    status:'Pending',
+    method:'esewa',
+    description:
+      'Booking',
+  },
+  {
+    id: 4,
+    title: 'Shankhamul Futsal',
+    date: ' 27 Mar,2024',
+    time: '09:00 AM-10:00 AM',
+    type: '5a side',
+    status:'Confirmed',
+    method:'esewa',
+    description:
+      'Match',
+  },
+ 
+  
+];
