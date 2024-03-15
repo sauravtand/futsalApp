@@ -1,5 +1,5 @@
 import {View, Text, Image, TouchableOpacity, ScrollView} from 'react-native';
-import React, {useState} from 'react';
+import React, {useState,useEffect} from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 export default function BookFutsal({navigation}) {
@@ -58,29 +58,74 @@ export default function BookFutsal({navigation}) {
   const hideEndTimePicker = () => {
     setIsEndTimePickerVisible(false);
   };
-  const handleConfirmStartTime = date => {
-    const hours = date.getHours();
-    const minutes = date.getMinutes();
-    const formattedHours = hours < 10 ? '0' + hours : hours;
-    const formattedMinutes = minutes < 10 ? '0' + minutes : minutes;
-    const period = hours >= 12 ? 'PM' : 'AM';
-    const formattedTime =
-      formattedHours + ':' + formattedMinutes + ' ' + period;
+  const handleConfirmStartTime = time => {
+    const formattedTime = time.toLocaleTimeString('en-US', {
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: false, // Ensure 24-hour format
+    });
     setSelectedStartTime(formattedTime);
     hideStartTimePicker();
   };
-
-  const handleConfirmEndTime = date => {
-    const hours = date.getHours();
-    const minutes = date.getMinutes();
-    const formattedHours = hours < 10 ? '0' + hours : hours;
-    const formattedMinutes = minutes < 10 ? '0' + minutes : minutes;
-    const period = hours >= 12 ? 'PM' : 'AM';
-    const formattedTime =
-      formattedHours + ':' + formattedMinutes + ' ' + period;
+  
+  const handleConfirmEndTime = time => {
+    const formattedTime = time.toLocaleTimeString('en-US', {
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: false, // Ensure 24-hour format
+    });
+    
     setSelectedEndTime(formattedTime);
     hideEndTimePicker();
   };
+  
+  // Function to calculate the duration in hours between two time strings
+  const calculateHoursDifference = (startTime, endTime) => {
+    // Parse the time strings to get the hour and minute components
+    const startHour = parseInt(startTime.split(':')[0], 10);
+    const startMinute = parseInt(startTime.split(':')[1], 10);
+    const endHour = parseInt(endTime.split(':')[0], 10);
+    const endMinute = parseInt(endTime.split(':')[1], 10);
+  
+    // Adjust end time if it's before start time
+    if (endHour < startHour || (endHour === startHour && endMinute < startMinute)) {
+      endHour += 24; // Assuming end time is on the next day
+    }
+  
+    // Calculate the difference in hours and minutes
+    let hours = endHour - startHour;
+    let minutes = endMinute - startMinute;
+  
+    // Adjust hours and minutes if necessary
+    if (minutes < 0) {
+      hours--;
+      minutes += 60;
+    }
+  
+    // Calculate the total time difference in hours
+    const totalTimeDifference = hours + minutes / 60;
+  
+    return totalTimeDifference;
+  };
+  const [bookingHours, setBookingHours] = useState(0);
+  const handleBooking = () => {
+    const hours = calculateHoursDifference(selectedStartTime, selectedEndTime);
+    if (hours >= 0) {
+      console.log('Total Hours:', hours);
+      // Perform booking logic here
+      setBookingHours(hours); // Store hours in component state
+    } else {
+      console.log('Invalid time selection');
+    }
+  };
+  
+  useEffect(() => {
+    if (selectedStartTime !== 'Start Time' && selectedEndTime !== 'End Time') {
+      handleBooking();
+    }
+  }, [selectedStartTime, selectedEndTime]);
+
+  
 
   return (
     <View style={{flex: 1}}>
@@ -443,7 +488,7 @@ export default function BookFutsal({navigation}) {
           </View>
           <View style={{borderWidth:0,top:30,height:40,flexDirection:'row'}}>
             <Text style={{color:'black',left:20,top:5}}>Total Amount</Text>
-            <Text style={{color:'black',right:20,top:5,position:'absolute'}}>1 x 1500 =1500</Text>
+            <Text style={{color:'black',right:20,top:5,position:'absolute'}}>{bookingHours} x 1500={bookingHours *1500}</Text>
           </View>
 
       </View>
@@ -453,7 +498,7 @@ export default function BookFutsal({navigation}) {
          height: 150,}}>
         <View style={{borderWidth:0,top:0,height:80,flexDirection:'row'}}
         >
-           <TouchableOpacity onPress={()=>navigation.navigate("BookFutsal")}>
+           <TouchableOpacity>
           <View
             style={{
               height: 60,
@@ -477,7 +522,7 @@ export default function BookFutsal({navigation}) {
             </Text>
           </View>
         </TouchableOpacity>
-          <Text style={{color:'black',left:20,top:5,position:'absolute',fontSize:18}}>NPR 1500</Text>
+          <Text style={{color:'black',left:20,top:5,position:'absolute',fontSize:18}}>NPR {bookingHours *1500}</Text>
         </View>
       </View>
       </ScrollView>
