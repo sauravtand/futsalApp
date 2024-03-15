@@ -58,27 +58,28 @@ export default function BookFutsal({navigation}) {
   const hideEndTimePicker = () => {
     setIsEndTimePickerVisible(false);
   };
-  const handleConfirmStartTime = time => {
-    const formattedTime = time.toLocaleTimeString('en-US', {
-      hour: '2-digit',
-      minute: '2-digit',
-      hour12: false, // Ensure 24-hour format
-    });
+  const handleConfirmStartTime = date => {
+    const hours = date.getHours();
+    const minutes = date.getMinutes();
+    const formattedHours = hours < 10 ? '0' + hours : hours;
+    const formattedMinutes = minutes < 10 ? '0' + minutes : minutes;
+    const period = hours >= 12 ? 'PM' : 'AM';
+    const formattedTime =
+      formattedHours + ':' + formattedMinutes + ' ' + period;
     setSelectedStartTime(formattedTime);
     hideStartTimePicker();
   };
-  
-  const handleConfirmEndTime = time => {
-    const formattedTime = time.toLocaleTimeString('en-US', {
-      hour: '2-digit',
-      minute: '2-digit',
-      hour12: false, // Ensure 24-hour format
-    });
-    
+
+  const handleConfirmEndTime = date => {
+    const hours = date.getHours();
+    const minutes = date.getMinutes();
+    const formattedHours = hours < 10 ? '0' + hours : hours;
+    const formattedMinutes = minutes < 10 ? '0' + minutes : minutes;
+    const period = hours >= 12 ? 'PM' : 'AM';
+    const formattedTime = formattedHours + ':' + formattedMinutes + ' ' + period;
     setSelectedEndTime(formattedTime);
     hideEndTimePicker();
   };
-  
   // Function to calculate the duration in hours between two time strings
   const calculateHoursDifference = (startTime, endTime) => {
     // Parse the time strings to get the hour and minute components
