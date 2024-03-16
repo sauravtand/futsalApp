@@ -6,6 +6,8 @@ import Calendar from './Calendar'
 import Booking from './Booking'
 import Opponent from './Opponent'
 import Match from './Match'
+import MyGame from './MyGame'
+import { TOP_GAME } from '../data/constList'
 
 const Tab=createMaterialTopTabNavigator();
 export default function PlayScreen() {
@@ -13,7 +15,9 @@ export default function PlayScreen() {
     <Tab.Navigator
      initialRouteName='Calendar'
      screenOptions={{
-      tabBarLabelStyle: { fontSize: 12 },
+      tabBarLabelStyle: { fontSize: 12,color:'black' },
+      tabBarScrollEnabled:true,
+     
       
      }}
     >
@@ -21,6 +25,7 @@ export default function PlayScreen() {
      <Tab.Screen name="Booking" component={Booking}/>
      <Tab.Screen name="Opponent" component={Opponent}/>
      <Tab.Screen name="Match" component={Match}/>
+     <Tab.Screen name="MyGame" list={TOP_GAME} component={MyGame}/>
     </Tab.Navigator>
   )
 }

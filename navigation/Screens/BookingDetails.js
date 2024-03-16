@@ -129,12 +129,36 @@ export default function BookingDetails({navigation}) {
               </Text>
               </View>
               <View style={{flexDirection: 'row', top: 60}}>
-              <Text style={{color: 'black',left:25}}>Booking Status:</Text>
+              <Text style={{color: 'black',left:25}}>Booking Method:</Text>
               <Text style={{color: 'white', left: 30,backgroundColor:'green',width:45,borderRadius:2}}>
                 esewa
               </Text>
             </View>
       </View>
+      <TouchableOpacity>
+          <View
+            style={{
+              height: 40,
+              width: 100,
+              borderWidth: 0,
+              top: 105,
+             alignSelf:'center',
+              
+              backgroundColor: '#C11919',
+              borderRadius: 6,
+            }}>
+            <Text
+              style={{
+                alignSelf: 'center',
+                color: 'white',
+                fontSize: 12,
+                fontWeight: 'bold',
+                top: 10,
+              }}>
+              Cancel
+            </Text>
+          </View>
+        </TouchableOpacity>
       </View>
     </View>
   );

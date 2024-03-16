@@ -5,6 +5,7 @@ import DateTimePickerModal from 'react-native-modal-datetime-picker';
 export default function BookFutsal({navigation}) {
   const [selectedRadio, setSelectedRadio] = useState(0);
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+  const [isConfirmationVisible, setIsConfirmationVisible] = useState(false); 
   const [selectedDate, setSelectedDate] = useState('Select Date');
   const showDatePicker = () => {
     setDatePickerVisibility(true);
@@ -115,10 +116,20 @@ export default function BookFutsal({navigation}) {
       console.log('Total Hours:', hours);
       // Perform booking logic here
       setBookingHours(hours); // Store hours in component state
+     
     } else {
       console.log('Invalid time selection');
     }
   };
+  
+  const handleBookPress = () => {
+     setIsConfirmationVisible(true); // Show confirmation message
+      setTimeout(() => {
+        setIsConfirmationVisible(false); // Hide confirmation message after certain duration
+        navigation.navigate('MainTabs'); // Navigate to BookScreen
+      }, 3000); // 3000 milliseconds or 3 seconds
+  };
+  
   
   useEffect(() => {
     if (selectedStartTime !== 'Start Time' && selectedEndTime !== 'End Time') {
@@ -499,7 +510,7 @@ export default function BookFutsal({navigation}) {
          height: 150,}}>
         <View style={{borderWidth:0,top:0,height:80,flexDirection:'row'}}
         >
-           <TouchableOpacity>
+           <TouchableOpacity onPress={handleBookPress}>
           <View
             style={{
               height: 60,
@@ -519,7 +530,7 @@ export default function BookFutsal({navigation}) {
                 fontWeight: 'bold',
                 top: 15,
               }}>
-              BOOK NOW!
+              BOOK 
             </Text>
           </View>
         </TouchableOpacity>
@@ -527,6 +538,27 @@ export default function BookFutsal({navigation}) {
         </View>
       </View>
       </ScrollView>
+      {isConfirmationVisible && (
+        <View style={styles.confirmationContainer}>
+          <Text style={styles.confirmationText}>Your booking request was submitted. Please wait for confirmation.</Text>
+        </View>
+          )}
     </View>
   );
 }
+const styles = {
+  confirmationContainer: {
+    position: 'absolute',
+    bottom: 20,
+    left: 20,
+    right: 20,
+    backgroundColor: 'rgba(0, 0, 0, 0.7)',
+    padding: 10,
+    borderRadius: 10,
+    alignItems: 'center',
+  },
+  confirmationText: {
+    color: 'white',
+    fontSize: 16,
+  },
+};

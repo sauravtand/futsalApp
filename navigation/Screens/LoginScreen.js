@@ -1,9 +1,17 @@
-import {View, SafeAreaView, Text, Image, TouchableOpacity} from 'react-native';
-import React, {useState} from 'react';
+import {View, SafeAreaView, Text, Image, TouchableOpacity,Alert} from 'react-native';
+import React, {useState, useEffect} from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {GestureHandlerRootView, TextInput} from 'react-native-gesture-handler';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {
+  GoogleSignin,
+  statusCodes,
+} from '@react-native-google-signin/google-signin';
+import firebase from '@react-native-firebase/app';
+import '@react-native-firebase/auth';
+import '@react-native-firebase/firestore';
+import auth from '@react-native-firebase/auth';
 
 export default function LoginScreen(props) {
   const [passwordVisible, setPasswordVisible] = useState(true);
@@ -17,10 +25,39 @@ export default function LoginScreen(props) {
   const handleRegister = () => {
     navigation.navigate('RegistrationScreen'); // Use navigation to navigate
   };
-  const handleLogin = () => {
-    navigation.navigate('MainTabs'); // Use navigation to navigate
+
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleLogin =  () => {
+    navigation.navigate('MainTabs');
   };
 
+  useEffect(() => {
+    GoogleSignin.configure({
+      webClientId:
+        '672940773095-std79pjesercjnmshq7l968fs2kfc536.apps.googleusercontent.com',
+      offlineAccess: true,
+      hostedDomain: '',
+      forceConsentPrompt: true,
+    });
+  }, []);
+  const handleGoogleSignIn = async () => {
+    try {
+      await GoogleSignin.hasPlayServices();
+      const userInfo = await GoogleSignin.signIn();
+    } catch (error) {
+      if (error.code === statusCodes.SIGN_IN_CANCELLED) {
+        // User cancelled the sign-in flow.
+      } else if (error.code === statusCodes.IN_PROGRESS) {
+        // Sign-in operation is already in progress.
+      } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
+        // Play services not available or outdated.
+      } else {
+        // Other errors
+      }
+    }
+  };
   return (
     <SafeAreaView
       style={{flex: 1, justifyContent: 'center', backgroundColor: '#E6E6E6'}}>
@@ -58,8 +95,10 @@ export default function LoginScreen(props) {
             <TextInput
               placeholder="Email"
               placeholderTextColor={'black'}
-              style={{height: 35, top: -5, paddingVertical: 0,color:'black'}}
+              style={{height: 35, top: -5, paddingVertical: 0, color: 'black'}}
               keyboardType="email-address"
+              value={email}
+              onChangeText={setEmail}
             />
           </GestureHandlerRootView>
         </View>
@@ -80,8 +119,10 @@ export default function LoginScreen(props) {
             <TextInput
               placeholder="Password"
               placeholderTextColor={'black'}
-              style={{height: 35, top: -5, paddingVertical: 0,color:'black'}}
+              style={{height: 35, top: -5, paddingVertical: 0, color: 'black'}}
               secureTextEntry={passwordVisible}
+              value={password}
+              onChangeText={setPassword}
             />
           </GestureHandlerRootView>
           <TouchableOpacity
@@ -105,7 +146,13 @@ export default function LoginScreen(props) {
             alignContent: 'center',
           }}
           onPress={handleLogin}>
-          <Text style={{textAlign: 'center', fontWeight: '700', fontSize: 18,color:'white'}}>
+          <Text
+            style={{
+              textAlign: 'center',
+              fontWeight: '700',
+              fontSize: 18,
+              color: 'white',
+            }}>
             Login
           </Text>
         </TouchableOpacity>
@@ -128,6 +175,7 @@ export default function LoginScreen(props) {
             gap: -50,
           }}>
           <TouchableOpacity
+            onPress={handleGoogleSignIn}
             style={{
               borderColor: '#ddd',
               // borderWidth:2,

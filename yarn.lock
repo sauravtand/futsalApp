@@ -1724,6 +1724,11 @@
   resolved "https://registry.npmjs.org/@react-native-firebase/firestore/-/firestore-18.9.0.tgz"
   integrity sha512-Hma+LB5wAYt+NgGxALWxCwrTkUz7jNXHIRZLghzMK4RFmhVCaL7q2qaFvMfbu58UmRbcocGetykI4R1qQOxY9w==
 
+"@react-native-google-signin/google-signin@^11.0.0":
+  version "11.0.0"
+  resolved "https://registry.npmjs.org/@react-native-google-signin/google-signin/-/google-signin-11.0.0.tgz"
+  integrity sha512-J8BFFGr5HcEWE2gRaVSJ0rQN8ztxYIr2wdWMG4PS1vhQZJqUzmRr6vpu12O1GppItq8ai7AA0rl/ja7hSytSXA==
+
 "@react-native-picker/picker@^2.6.1":
   version "2.6.1"
   resolved "https://registry.npmjs.org/@react-native-picker/picker/-/picker-2.6.1.tgz"

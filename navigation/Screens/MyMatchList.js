@@ -15,7 +15,7 @@ const CARD_WIDTH = sizes.width - 80;
 const CARD_HEIGHT = 200;
 const CARD_WIDTH_SPACING = CARD_WIDTH + spacing.l;
 
-export default function UpcomingBook({list,navigation}) {
+export default function MyMatchList({list,navigation}) {
 
   return (
     <FlatList
@@ -46,9 +46,14 @@ export default function UpcomingBook({list,navigation}) {
                 <Icon name="clock-o" size={20} style={{color:'black'}}/>
                 <Text style={{color:'black',left:10}}>{item.time}</Text>
                 </View>
+                <View style={{flexDirection:'row',top:60,width:230}}>
+                <Icon name="futbol-o" size={18} style={{color:'black'}}/>
+                <Text style={{color:'black',left:10}}>5a side | Loosers Pay | 1500Rs</Text>
+                </View>
                 
               </View>
-              <View style={{borderWidth:0,height:40,top:20,left:40,width:100,backgroundColor:'#F95609'}}>
+              <TouchableOpacity>
+              <View style={{borderWidth:0,height:40,top:10,left:40,width:100,backgroundColor:'#01B460',borderRadius:6}}>
               <Text
               style={{
                 alignSelf: 'center',
@@ -57,9 +62,10 @@ export default function UpcomingBook({list,navigation}) {
                 fontWeight: 'bold',
                 top: 10,
               }}>
-              {item.description}
+             EDIT
             </Text>
               </View>
+              </TouchableOpacity>
               </View>
               <TouchableOpacity>
           <View
@@ -67,7 +73,7 @@ export default function UpcomingBook({list,navigation}) {
               height: 40,
               width: 100,
               borderWidth: 0,
-              top: 35,
+              top: 60,
              alignSelf:'center',
               
               backgroundColor: '#C11919',
@@ -81,7 +87,7 @@ export default function UpcomingBook({list,navigation}) {
                 fontWeight: 'bold',
                 top: 10,
               }}>
-              Cancel
+             Delete
             </Text>
           </View>
         </TouchableOpacity>
@@ -98,7 +104,7 @@ export default function UpcomingBook({list,navigation}) {
 const styles = StyleSheet.create({
   card: {
     width: CARD_WIDTH,
-    height: 220,
+    height: 250,
     marginVertical: 10,
     backgroundColor:'#FEFEFE',
     borderRadius:16,

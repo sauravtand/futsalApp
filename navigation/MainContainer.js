@@ -25,6 +25,7 @@ import BookFutsal from './Screens/BookFutsal';
 import CreateGameScreen from './Screens/CreateGameScreen';
 import BookingDetails from './Screens/BookingDetails';
 import FutsalListScreen from './Screens/FutsalListScreen';
+import Booking from './Screens/Booking';
 import { BOOKINGS } from './data/constList';
 
 
@@ -74,6 +75,7 @@ export default function MainContainer() {
         <Stack.Screen name="FutsalInfo" component={FutsalInfo} options={{ headerShown: false }} />
         <Stack.Screen name="PriceChart" component={PriceChart} options={{ headerShown: false }} />
         <Stack.Screen name="BookFutsal"  component={BookFutsal} options={{ headerShown: false }} />
+    
         <Stack.Screen name="CreateGameScreen" component={CreateGameScreen} options={{ headerShown: false }} />
         <Stack.Screen name="BookingDetails" list={BOOKINGS} component={BookingDetails} options={{ headerShown: false }} />
         <Stack.Screen name="MainTabs" component={MainTabs} />

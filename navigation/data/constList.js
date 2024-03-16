@@ -30,18 +30,18 @@ export const TOP_FUTSAL = [
   },
   {
     id: 4,
-    image: require('../Screens/images/dhukhu.jpg'),
-    title: ' Cupon Futsal',
-    location: ' Kapan,Kathmandu',
+    image: require('../Screens/images/shankhamul.jpg'),
+    title: ' Shankhamul Futsal',
+    location: ' Shankhamul,Kathmandu',
     value:4,
     description:
-      'NPR 2500/hr',
+      'NPR 1500/hr',
   },
   {
     id: 5,
-    image: require('../Screens/images/cupon1.jpg'),
-    title: ' Cupon Futsal',
-    location: ' Kapan,Kathmandu',
+    image: require('../Screens/images/matshya.jpg'),
+    title: ' Matshya Futsal',
+    location: ' Machhegaun,Kathmandu',
     value:4,
     description:
       'NPR 2500/hr',
@@ -58,6 +58,8 @@ export const TOP_GAME = [
     location: ' Lamingtan,Kathmandu',
     description:
       ' 5a side | Loosers Pay | 1500Rs ',
+      phone:9823158427,
+      booking:' Pending'
   },
   {
     id: 2,
@@ -68,6 +70,8 @@ export const TOP_GAME = [
     location: ' Shankhamul,Kathmandu',
     description:
       ' 5a side | Friendly | 1500Rs ',
+      phone:9862250992,
+      booking:' Accepted'
   },
   {
     id: 3,
@@ -78,6 +82,8 @@ export const TOP_GAME = [
     location: ' Kapan,Kathmandu',
     description:
       ' 7a side | Loosers Pay | 2500Rs ',
+      phone:9823158427,
+      booking:' Accepted'
   },
  
   
