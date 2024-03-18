@@ -463,7 +463,7 @@ export default function CreateGameScreen({navigation}) {
          height: 150,}}>
         <View style={{borderWidth:0,top:0,height:80,flexDirection:'row'}}
         >
-           <TouchableOpacity>
+           <TouchableOpacity onPress={()=>navigation.navigate("MainTabs")}>
           <View
             style={{
               height: 60,
