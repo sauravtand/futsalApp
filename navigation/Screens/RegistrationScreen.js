@@ -5,6 +5,7 @@ import {
   Image,
   TouchableOpacity,
   ScrollView,
+  Modal
 } from 'react-native';
 import React, {useState, useRef} from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -16,7 +17,9 @@ import '@react-native-firebase/auth';
 import '@react-native-firebase/firestore';
 
 export default function RegistrationScreen(props) {
+  const [registrationSuccess, setRegistrationSuccess] = useState(false); // Define registration success state
   const [passwordVisible, setPasswordVisible] = useState(true);
+
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
   };
@@ -38,32 +41,48 @@ export default function RegistrationScreen(props) {
       setError('Please fill in all fields');
       return;
     }
-
+  
     if (password !== confirmPassword) {
       setError("Passwords don't match");
       return;
     }
-
-    firebase
-    .auth()
-    .createUserWithEmailAndPassword(email, password)
-    .then(userCredential => {
-      const user = userCredential.user;
-      firebase.firestore().collection('users').doc(user.uid).set({
-        fullName,
-        email,
-        phoneNumber,
+  
+    // Check if the phone number is already registered
+    firebase.firestore().collection('users')
+      .where('phoneNumber', '==', phoneNumber)
+      .get()
+      .then(querySnapshot => {
+        if (!querySnapshot.empty) {
+          setError('Phone number is already registered for another account');
+        } else {
+          // Proceed with user registration
+          firebase
+            .auth()
+            .createUserWithEmailAndPassword(email, password)
+            .then(userCredential => {
+              const user = userCredential.user;
+              firebase.firestore().collection('users').doc(user.uid).set({
+                fullName,
+                email,
+                phoneNumber,
+              });
+              setRegistrationSuccess(true); // Set registration success message visibility
+              setTimeout(() => {
+                setRegistrationSuccess(false);
+                navigation.navigate('LoginScreen'); // Navigate to LoginScreen after showing success message
+              }, 3000); // Show success message for 3 seconds
+            })
+            .catch(error => {
+              setError(error.message); // Set error message if registration fails
+            });
+        }
+      })
+      .catch(error => {
+        setError(error.message); // Handle error
       });
-      setShowSuccessMessage(true);
-      setTimeout(() => {
-        setShowSuccessMessage(false);
-        navigation.navigate('LoginScreen');
-      }, 3000); // Navigate to LoginScreen after 3 seconds
-    })
-    .catch(error => {
-      setError(error.message);
-    });
-};
+  };
+  
+  
 
   return (
     <SafeAreaView
@@ -203,6 +222,7 @@ export default function RegistrationScreen(props) {
               placeholderTextColor={'black'}
               style={{height: 35, top: -5, paddingVertical: 0, color: 'black'}}
               keyboardType="numeric"
+              maxLength={10}
               onChangeText={text => setPhoneNumber(text)} // Update phoneNumber state
             />
           </GestureHandlerRootView>
@@ -307,6 +327,20 @@ export default function RegistrationScreen(props) {
             <Text style={{color: '#FF7F32', top: -30}}>Login</Text>
           </TouchableOpacity>
         </View>
+       {/* Modal for registration success */}
+       <Modal
+          visible={registrationSuccess}
+          animationType="slide"
+          transparent={true}
+        >
+          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0, 0, 0, 0.5)' }}>
+            <View style={{ backgroundColor: 'white', padding: 20, borderRadius: 10, alignItems: 'center' }}>
+             
+              <Text style={{ fontSize: 20, fontWeight: 'bold', marginBottom: 10 }}>Registration Successful!</Text>
+              <Text>Your account has been successfully registered.</Text>
+            </View>
+          </View>
+        </Modal>
       </ScrollView>
     </SafeAreaView>
   );

@@ -7,7 +7,7 @@ import {
   Image,
   SectionHeader,
 } from 'react-native';
-import React from 'react';
+import React,{useEffect,useState} from 'react';
 import TopFutsalCarousel from './TopFutsalCarousel';
 import {TOP_FUTSAL, TOP_GAME} from '../data/constList';
 import TopGameCarousel from './TopGameCarousel';
@@ -16,7 +16,24 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import {NavigationContainer, useNavigation} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
+import firestore from '@react-native-firebase/firestore';
 export default function HomeScreen({navigation}) {
+  // const[myData,setMyData]=useState(null);
+  // useEffect(() => {
+  
+  // getDatabase();
+   
+  // }, [])
+  // const getDatabase = async () => {
+  //   try {
+  //     const snapshot = await firestore().collection("Futsal_List").doc("RE92YlRP1TaqhmMD4xzN").get();
+  //     const data = snapshot.data(); // Extract the data from the snapshot
+  //     console.log("Fetched data:", data); // Log the fetched data
+  //   } catch (err) {
+  //     console.log("Error fetching data:", err);
+  //   }
+  // }
+  
   return (
     <SafeAreaView
       style={{
