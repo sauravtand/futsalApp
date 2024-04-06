@@ -12,8 +12,8 @@
   "dependencies": {
     "@flaticon/flaticon-uicons": "^3.1.0",
     "@react-native-community/datetimepicker": "^7.6.2",
-    "@react-native-firebase/app": "^19.1.1",
-    "@react-native-firebase/auth": "^18.9.0",
+    "@react-native-firebase/app": "^19.1.2",
+    "@react-native-firebase/auth": "^19.1.1",
     "@react-native-firebase/firestore": "^18.9.0",
     "@react-native-google-signin/google-signin": "^11.0.0",
     "@react-native-picker/picker": "^2.6.1",
@@ -23,6 +23,8 @@
     "@react-navigation/native-stack": "^6.9.18",
     "@react-navigation/stack": "^6.3.21",
     "@types/react-native-vector-icons": "^6.4.18",
+    "firebase": "^10.10.0",
+    "prop-types": "^15.8.1",
     "react": "18.2.0",
     "react-native": "0.73.4",
     "react-native-datepicker": "^1.7.2",
@@ -34,7 +36,10 @@
     "react-native-screens": "^3.29.0",
     "react-native-swiper-flatlist": "^3.2.3",
     "react-native-tab-view": "^3.5.2",
-    "react-native-vector-icons": "^10.0.3"
+    "react-native-vector-icons": "^10.0.3",
+    "react-native-webview": "^13.8.4",
+    "rn-all-nepal-payment": "^1.0.2",
+    "rn-nepal-payment": "^0.1.2"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

@@ -7,15 +7,35 @@ import {
   Image,
   
 } from 'react-native';
-import React,{useState} from 'react';
+import React,{useEffect,useState} from 'react';
 import {sizes, spacing, shadow, colors} from '../constants/theme';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import firebase from 'firebase/app';
+import 'firebase/firestore';
+import 'firebase/storage';
 
 const CARD_WIDTH = sizes.width - 80;
 const CARD_HEIGHT = 200;
 const CARD_WIDTH_SPACING = CARD_WIDTH + spacing.l;
 
 export default function FutsalListScreen({list,navigation}) {
+  // const [futsalData, setFutsalData] = useState([]);
+
+  // useEffect(() => {
+  //   const fetchFutsalData = async () => {
+  //     const db = firebase.firestore();
+  //     const futsalCollection = db.collection('Futsal_List');
+  //     const snapshot = await futsalCollection.get();
+  //     const data = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+  //     setFutsalData(data);
+  //     console.log(data);
+  //   };
+
+  //   fetchFutsalData();
+  // }, []);
+
+
+
   const [favorites, setFavorites] = useState([]);
 
   const toggleFavorite = (id) => {
@@ -57,7 +77,7 @@ export default function FutsalListScreen({list,navigation}) {
                 />
               </TouchableOpacity>
               <View style={styles.imageBox}>
-                <Image source={item.image} style={styles.image} />
+              <Image source={item.image} style={styles.image} />
               </View>
               <View style={styles.titleBox}>
                 <Text style={styles.title}>{item.title}</Text>
@@ -82,8 +102,7 @@ export default function FutsalListScreen({list,navigation}) {
                     style={{height: 10, width: 10, resizeMode: 'cover'}}
                   />
                 </View>
-                
-              
+
                 <Text style={styles.description}>{item.description}</Text>
               </View>
             </View>
@@ -132,7 +151,7 @@ const styles = StyleSheet.create({
   description: {
     fontSize: 10,
     fontWeight: 'bold',
-    color:colors.white,
+    color: colors.white,
     //
   },
   favourite:{

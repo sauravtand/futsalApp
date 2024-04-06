@@ -12,6 +12,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import PriceChart from './Screens/PriceChart';
+import firebase from '@react-native-firebase/app';
 
 //Screens
 import HomeScreen from './Screens/HomeScreen';
@@ -33,6 +34,10 @@ const {width, height} = Dimensions.get('window');
 //for bottom tab navigation
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
+}
+
 export default function MainContainer() {
   const [isLoading, setIsLoading] = useState(true);
 

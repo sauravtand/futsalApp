@@ -1,7 +1,9 @@
-import {View, Text, Image, TouchableOpacity, ScrollView} from 'react-native';
+import {View, Text, Image, TouchableOpacity, ScrollView,Button} from 'react-native';
 import React, {useState,useEffect} from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
+
+import { EsewaSdk } from 'rn-nepal-payment';
 export default function BookFutsal({navigation}) {
   const [selectedRadio, setSelectedRadio] = useState(0);
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
@@ -29,6 +31,7 @@ export default function BookFutsal({navigation}) {
     const options = {weekday: 'long', month: 'short', day: '2-digit'};
     const formattedDate = date.toLocaleDateString('en-US', options);
     setSelectedDate(formattedDate);
+    checkDateAvailability(formattedDate); // Check date availability
     hideDatePicker();
   };
 
@@ -137,6 +140,38 @@ export default function BookFutsal({navigation}) {
     }
   }, [selectedStartTime, selectedEndTime]);
 
+  const [isVisible, setisVisible] = React.useState(false);
+  const [response, setResponse] = React.useState('');
+
+  const _onPaymentComplete = (response) => {
+    setResponse(response);
+    setisVisible(false);
+    return
+  }
+
+
+
+  const [isDateAvailable, setIsDateAvailable] = useState(false);
+
+  // Function to check if the selected date is available in Firestore
+  const checkDateAvailability = async (selectedDate) => {
+    const futsalRef = firebase.firestore().collection('Booking_Slot').doc('dhukhu');
+    const snapshot = await futsalRef.get();
+    if (snapshot.exists) {
+      const data = snapshot.data();
+      if (data[selectedDate]) {
+        // Date is available
+        setIsDateAvailable(true);
+      } else {
+        // Date is not available
+        setIsDateAvailable(false);
+      }
+    } else {
+      // Futsal not found or error occurred
+      setIsDateAvailable(false);
+    }
+  };
+
   
 
   return (
@@ -173,17 +208,7 @@ export default function BookFutsal({navigation}) {
         }}>
         <Text style={{left: 30, top: 20, color: '#434343'}}>Slot Date</Text>
         <TouchableOpacity onPress={handleDateSelection}>
-          <View
-            style={{
-              borderRadius: 10,
-              borderWidth: 2,
-              borderColor: '#D9D9D9',
-              top: 25,
-              height: 50,
-              width: 330,
-              left: 30,
-              flexDirection: 'row',
-            }}>
+        <View style={[styles.datePickerContainer, { borderColor: isDateAvailable ? 'green' : 'red' }]}>
             <Text style={{top: 10, left: 15, color: '#434343'}}>
               {selectedDate}
             </Text>
@@ -536,6 +561,27 @@ export default function BookFutsal({navigation}) {
         </TouchableOpacity>
           <Text style={{color:'black',left:20,top:5,position:'absolute',fontSize:18}}>NPR {bookingHours *1500}</Text>
         </View>
+        {/* <Button
+        title={'Esewa test'}
+        onPress={() => setisVisible(true)}
+        style={{ width: 100, height: 50, backgroundColor: 'red' }}
+      />
+      {response?.token && <Text>{`ref id: ${response.token}`}</Text>}
+
+      <EsewaSdk
+        amt={100} // Amount of product or item or ticket etc
+        taxAmt={5} // Tax amount on product or item or ticket etc
+        totalAmt={105} // Total payment amount including tax, service and deliver charge. [i.e tAmt = amt + txAmt + psc + tAmt]
+        env={'EPAYTEST'} // Merchant code provided by eSewa
+        testMode={true} // Boolean value for enabling test endpoint and real payment gateway
+        isVisible={isVisible} // Bool to show modal
+        onPaymentComplete={_onPaymentComplete} //  Callback from connectips Web Sdk
+        pid={"ee2c3ca1-696b-4cc5-a6be-2c40d929d43"} // A unique ID of product or item or ticket etc
+        failureURL={`http://merchant.com.np/page/esewa_payment_failed?q=fu`} // Failure URL: a redirect URL of merchant application where customer will be redirected after FAILURE or PENDING transaction
+        successURL={`http://merchant.com.np/page/esewa_payment_success?q=su`} // Success URL: a redirect URL of merchant application where customer will be redirected after SUCCESSFUL transaction
+        psc={0} // Product service charge amount
+        pdc={0} // Product delivery charge amount
+      /> */}
       </View>
       </ScrollView>
       {isConfirmationVisible && (
@@ -547,6 +593,17 @@ export default function BookFutsal({navigation}) {
   );
 }
 const styles = {
+  datePickerContainer:{
+    borderRadius: 10,
+              borderWidth: 2,
+              borderColor: '#D9D9D9',
+              top: 25,
+              height: 50,
+              width: 330,
+              left: 30,
+              flexDirection: 'row',
+              
+  },
   confirmationContainer: {
     position: 'absolute',
     bottom: 20,

@@ -28,10 +28,48 @@ export default function LoginScreen(props) {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [loginSuccessVisible, setLoginSuccessVisible] = useState(false);
 
-  const handleLogin =  () => {
-    navigation.navigate('MainTabs');
+  const handleLogin = async () => {
+    // Trim leading and trailing white spaces from email and password
+    const trimmedEmail = email.trim();
+    const trimmedPassword = password.trim();
+  
+    // Check if email and password are not empty
+    if (!trimmedEmail || !trimmedPassword) {
+      Alert.alert('Error', 'Email and password cannot be empty');
+      return;
+    }
+  
+    try {
+      const userCredential = await firebase.auth().signInWithEmailAndPassword(trimmedEmail, trimmedPassword);
+      // Login successful
+     
+      setLoginSuccessVisible(true);
+      setTimeout(() => {
+        setLoginSuccessVisible(false);
+        navigation.navigate('MainTabs');
+      }, 3000); // Hide success message after 3 seconds and navigate to MainTabs
+    
+    } catch (error) {
+      // Log error for debugging
+      // console.error('Login error:', error);
+  
+      // Handle login failure
+      if (error.code === 'auth/user-not-found') {
+        // Incorrect email
+        Alert.alert('Error', 'Incorrect email');
+      } else if (error.code === 'auth/wrong-password') {
+        // Incorrect password
+        Alert.alert('Error', 'Incorrect password');
+      } else {
+        // Other errors
+        // console.error('Login error:', error);
+        Alert.alert('Error', 'Login failed. Please check email and password before login again.');
+      }
+    }
   };
+  
 
   useEffect(() => {
     GoogleSignin.configure({
@@ -228,6 +266,24 @@ export default function LoginScreen(props) {
           </TouchableOpacity>
         </View>
       </View>
+      {/* Login success message */}
+      {loginSuccessVisible && (
+        
+        <View
+          style={{
+            position: 'absolute',
+             
+            left: 0,
+            right: 0,
+            alignItems: 'center',
+          }}>
+          <Text style={{ backgroundColor: 'rgba(0, 255, 0, 0.8)', padding: 10, borderRadius: 5 }}>
+            Login successful
+          </Text>
+        </View>
+        
+      
+      )}
     </SafeAreaView>
   );
 }
