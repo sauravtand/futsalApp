@@ -5,7 +5,7 @@ import {
   Image,
   TouchableOpacity,
   ScrollView,
-  Modal
+  Modal,
 } from 'react-native';
 import React, {useState, useRef} from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -41,14 +41,16 @@ export default function RegistrationScreen(props) {
       setError('Please fill in all fields');
       return;
     }
-  
+
     if (password !== confirmPassword) {
       setError("Passwords don't match");
       return;
     }
-  
+
     // Check if the phone number is already registered
-    firebase.firestore().collection('users')
+    firebase
+      .firestore()
+      .collection('users')
       .where('phoneNumber', '==', phoneNumber)
       .get()
       .then(querySnapshot => {
@@ -81,8 +83,6 @@ export default function RegistrationScreen(props) {
         setError(error.message); // Handle error
       });
   };
-  
-  
 
   return (
     <SafeAreaView
@@ -307,7 +307,13 @@ export default function RegistrationScreen(props) {
             height: 50,
             alignContent: 'center',
           }}>
-          <Text style={{textAlign: 'center', fontWeight: '700', fontSize: 18,color:'white'}}>
+          <Text
+            style={{
+              textAlign: 'center',
+              fontWeight: '700',
+              fontSize: 18,
+              color: 'white',
+            }}>
             Register
           </Text>
         </TouchableOpacity>
@@ -327,16 +333,29 @@ export default function RegistrationScreen(props) {
             <Text style={{color: '#FF7F32', top: -30}}>Login</Text>
           </TouchableOpacity>
         </View>
-       {/* Modal for registration success */}
-       <Modal
+        {/* Modal for registration success */}
+        <Modal
           visible={registrationSuccess}
           animationType="slide"
-          transparent={true}
-        >
-          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0, 0, 0, 0.5)' }}>
-            <View style={{ backgroundColor: 'white', padding: 20, borderRadius: 10, alignItems: 'center' }}>
-             
-              <Text style={{ fontSize: 20, fontWeight: 'bold', marginBottom: 10 }}>Registration Successful!</Text>
+          transparent={true}>
+          <View
+            style={{
+              flex: 1,
+              justifyContent: 'center',
+              alignItems: 'center',
+              backgroundColor: 'rgba(0, 0, 0, 0.5)',
+            }}>
+            <View
+              style={{
+                backgroundColor: 'black',
+                padding: 20,
+                borderRadius: 10,
+                alignItems: 'center',
+              }}>
+              <Text
+                style={{fontSize: 20, fontWeight: 'bold', marginBottom: 10}}>
+                Registration Successful!
+              </Text>
               <Text>Your account has been successfully registered.</Text>
             </View>
           </View>
